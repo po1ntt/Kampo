@@ -1,0 +1,397 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="Хранилище KampoDBModel" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="LogsUsers">
+          <Key>
+            <PropertyRef Name="id_logs" />
+          </Key>
+          <Property Name="id_logs" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="user_id" Type="int" />
+          <Property Name="ActionType" Type="nvarchar(max)" />
+          <Property Name="ObjectChanged" Type="nvarchar(max)" />
+          <Property Name="NameObject" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="ProductName" Type="nvarchar(max)" />
+          <Property Name="productscategory_id" Type="int" Nullable="false" />
+          <Property Name="ProductDescription" Type="nvarchar(max)" />
+          <Property Name="CountProduct" Type="int" />
+        </EntityType>
+        <EntityType Name="ProductsCategory">
+          <Key>
+            <PropertyRef Name="id_productcategory" />
+          </Key>
+          <Property Name="id_productcategory" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CategoryName" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="ProductsProperties">
+          <Key>
+            <PropertyRef Name="id_productproperties" />
+          </Key>
+          <Property Name="id_productproperties" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="property_id" Type="int" />
+          <Property Name="ValueProperty" Type="nvarchar(max)" />
+          <Property Name="product_id" Type="int" />
+        </EntityType>
+        <EntityType Name="Properties">
+          <Key>
+            <PropertyRef Name="id_propertries" />
+          </Key>
+          <Property Name="id_propertries" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NameProperty" Type="nvarchar(max)" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+          <Property Name="principal_id" Type="int" Nullable="false" />
+          <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="version" Type="int" />
+          <Property Name="definition" Type="varbinary(max)" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="FirstName" Type="nvarchar(max)" />
+          <Property Name="SecondName" Type="nvarchar(max)" />
+          <Property Name="Partronumic" Type="nvarchar(max)" />
+          <Property Name="NumberPhone" Type="nvarchar(max)" />
+          <Property Name="Login" Type="nvarchar(max)" />
+          <Property Name="Password" Type="nvarchar(max)" />
+        </EntityType>
+        <Association Name="FK_LogsUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogsUsers" Type="Self.LogsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="LogsUsers">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_ProductsCategory">
+          <End Role="ProductsCategory" Type="Self.ProductsCategory" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductsCategory">
+              <PropertyRef Name="id_productcategory" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="productscategory_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsProperties_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductsProperties" Type="Self.ProductsProperties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ProductsProperties">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsProperties_Properties">
+          <End Role="Properties" Type="Self.Properties" Multiplicity="0..1" />
+          <End Role="ProductsProperties" Type="Self.ProductsProperties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Properties">
+              <PropertyRef Name="id_propertries" />
+            </Principal>
+            <Dependent Role="ProductsProperties">
+              <PropertyRef Name="property_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="Хранилище KampoDBModelContainer">
+          <EntitySet Name="LogsUsers" EntityType="Self.LogsUsers" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="ProductsProperties" EntityType="Self.ProductsProperties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Properties" EntityType="Self.Properties" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_LogsUsers_Users" Association="Self.FK_LogsUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogsUsers" EntitySet="LogsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_ProductsCategory" Association="Self.FK_Products_ProductsCategory">
+            <End Role="ProductsCategory" EntitySet="ProductsCategory" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsProperties_Products" Association="Self.FK_ProductsProperties_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsProperties" EntitySet="ProductsProperties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsProperties_Properties" Association="Self.FK_ProductsProperties_Properties">
+            <End Role="Properties" EntitySet="Properties" />
+            <End Role="ProductsProperties" EntitySet="ProductsProperties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="KampoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="LogsUsers">
+          <Key>
+            <PropertyRef Name="id_logs" />
+          </Key>
+          <Property Name="id_logs" Type="Int32" Nullable="false" />
+          <Property Name="user_id" Type="Int32" />
+          <Property Name="ActionType" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="ObjectChanged" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NameObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Users" Relationship="Self.FK_LogsUsers_Users" FromRole="LogsUsers" ToRole="Users" />
+        </EntityType>
+        <EntityType Name="Products">
+          <Key>
+            <PropertyRef Name="id_product" />
+          </Key>
+          <Property Name="id_product" Type="Int32" Nullable="false" />
+          <Property Name="ProductName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="productscategory_id" Type="Int32" Nullable="false" />
+          <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="CountProduct" Type="Int32" />
+          <NavigationProperty Name="ProductsCategory" Relationship="Self.FK_Products_ProductsCategory" FromRole="Products" ToRole="ProductsCategory" />
+          <NavigationProperty Name="ProductsProperties" Relationship="Self.FK_ProductsProperties_Products" FromRole="Products" ToRole="ProductsProperties" />
+        </EntityType>
+        <EntityType Name="ProductsCategory">
+          <Key>
+            <PropertyRef Name="id_productcategory" />
+          </Key>
+          <Property Name="id_productcategory" Type="Int32" Nullable="false" />
+          <Property Name="CategoryName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_Products_ProductsCategory" FromRole="ProductsCategory" ToRole="Products" />
+        </EntityType>
+        <EntityType Name="ProductsProperties">
+          <Key>
+            <PropertyRef Name="id_productproperties" />
+          </Key>
+          <Property Name="id_productproperties" Type="Int32" Nullable="false" />
+          <Property Name="property_id" Type="Int32" />
+          <Property Name="ValueProperty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="product_id" Type="Int32" />
+          <NavigationProperty Name="Products" Relationship="Self.FK_ProductsProperties_Products" FromRole="ProductsProperties" ToRole="Products" />
+          <NavigationProperty Name="Properties" Relationship="Self.FK_ProductsProperties_Properties" FromRole="ProductsProperties" ToRole="Properties" />
+        </EntityType>
+        <EntityType Name="Properties">
+          <Key>
+            <PropertyRef Name="id_propertries" />
+          </Key>
+          <Property Name="id_propertries" Type="Int32" Nullable="false" />
+          <Property Name="NameProperty" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="ProductsProperties" Relationship="Self.FK_ProductsProperties_Properties" FromRole="Properties" ToRole="ProductsProperties" />
+        </EntityType>
+        <EntityType Name="sysdiagrams">
+          <Key>
+            <PropertyRef Name="diagram_id" />
+          </Key>
+          <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="principal_id" Type="Int32" Nullable="false" />
+          <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="version" Type="Int32" />
+          <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+        </EntityType>
+        <EntityType Name="Users">
+          <Key>
+            <PropertyRef Name="id_user" />
+          </Key>
+          <Property Name="id_user" Type="Int32" Nullable="false" />
+          <Property Name="FirstName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="SecondName" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Partronumic" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="NumberPhone" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Login" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
+          <NavigationProperty Name="LogsUsers" Relationship="Self.FK_LogsUsers_Users" FromRole="Users" ToRole="LogsUsers" />
+        </EntityType>
+        <Association Name="FK_LogsUsers_Users">
+          <End Role="Users" Type="Self.Users" Multiplicity="0..1" />
+          <End Role="LogsUsers" Type="Self.LogsUsers" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Users">
+              <PropertyRef Name="id_user" />
+            </Principal>
+            <Dependent Role="LogsUsers">
+              <PropertyRef Name="user_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Products_ProductsCategory">
+          <End Role="ProductsCategory" Type="Self.ProductsCategory" Multiplicity="1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="ProductsCategory">
+              <PropertyRef Name="id_productcategory" />
+            </Principal>
+            <Dependent Role="Products">
+              <PropertyRef Name="productscategory_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsProperties_Products">
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="ProductsProperties" Type="Self.ProductsProperties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ProductsProperties">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ProductsProperties_Properties">
+          <End Role="Properties" Type="Self.Properties" Multiplicity="0..1" />
+          <End Role="ProductsProperties" Type="Self.ProductsProperties" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Properties">
+              <PropertyRef Name="id_propertries" />
+            </Principal>
+            <Dependent Role="ProductsProperties">
+              <PropertyRef Name="property_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="KampoDBEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="LogsUsers" EntityType="Self.LogsUsers" />
+          <EntitySet Name="Products" EntityType="Self.Products" />
+          <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" />
+          <EntitySet Name="ProductsProperties" EntityType="Self.ProductsProperties" />
+          <EntitySet Name="Properties" EntityType="Self.Properties" />
+          <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+          <EntitySet Name="Users" EntityType="Self.Users" />
+          <AssociationSet Name="FK_LogsUsers_Users" Association="Self.FK_LogsUsers_Users">
+            <End Role="Users" EntitySet="Users" />
+            <End Role="LogsUsers" EntitySet="LogsUsers" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Products_ProductsCategory" Association="Self.FK_Products_ProductsCategory">
+            <End Role="ProductsCategory" EntitySet="ProductsCategory" />
+            <End Role="Products" EntitySet="Products" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsProperties_Products" Association="Self.FK_ProductsProperties_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ProductsProperties" EntitySet="ProductsProperties" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ProductsProperties_Properties" Association="Self.FK_ProductsProperties_Properties">
+            <End Role="Properties" EntitySet="Properties" />
+            <End Role="ProductsProperties" EntitySet="ProductsProperties" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="Хранилище KampoDBModelContainer" CdmEntityContainer="KampoDBEntities">
+          <EntitySetMapping Name="LogsUsers">
+            <EntityTypeMapping TypeName="KampoDBModel.LogsUsers">
+              <MappingFragment StoreEntitySet="LogsUsers">
+                <ScalarProperty Name="id_logs" ColumnName="id_logs" />
+                <ScalarProperty Name="user_id" ColumnName="user_id" />
+                <ScalarProperty Name="ActionType" ColumnName="ActionType" />
+                <ScalarProperty Name="ObjectChanged" ColumnName="ObjectChanged" />
+                <ScalarProperty Name="NameObject" ColumnName="NameObject" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Products">
+            <EntityTypeMapping TypeName="KampoDBModel.Products">
+              <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="id_product" ColumnName="id_product" />
+                <ScalarProperty Name="ProductName" ColumnName="ProductName" />
+                <ScalarProperty Name="productscategory_id" ColumnName="productscategory_id" />
+                <ScalarProperty Name="ProductDescription" ColumnName="ProductDescription" />
+                <ScalarProperty Name="CountProduct" ColumnName="CountProduct" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsCategory">
+            <EntityTypeMapping TypeName="KampoDBModel.ProductsCategory">
+              <MappingFragment StoreEntitySet="ProductsCategory">
+                <ScalarProperty Name="id_productcategory" ColumnName="id_productcategory" />
+                <ScalarProperty Name="CategoryName" ColumnName="CategoryName" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ProductsProperties">
+            <EntityTypeMapping TypeName="KampoDBModel.ProductsProperties">
+              <MappingFragment StoreEntitySet="ProductsProperties">
+                <ScalarProperty Name="id_productproperties" ColumnName="id_productproperties" />
+                <ScalarProperty Name="property_id" ColumnName="property_id" />
+                <ScalarProperty Name="ValueProperty" ColumnName="ValueProperty" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Properties">
+            <EntityTypeMapping TypeName="KampoDBModel.Properties">
+              <MappingFragment StoreEntitySet="Properties">
+                <ScalarProperty Name="id_propertries" ColumnName="id_propertries" />
+                <ScalarProperty Name="NameProperty" ColumnName="NameProperty" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="sysdiagrams">
+            <EntityTypeMapping TypeName="KampoDBModel.sysdiagrams">
+              <MappingFragment StoreEntitySet="sysdiagrams">
+                <ScalarProperty Name="name" ColumnName="name" />
+                <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+                <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+                <ScalarProperty Name="version" ColumnName="version" />
+                <ScalarProperty Name="definition" ColumnName="definition" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Users">
+            <EntityTypeMapping TypeName="KampoDBModel.Users">
+              <MappingFragment StoreEntitySet="Users">
+                <ScalarProperty Name="id_user" ColumnName="id_user" />
+                <ScalarProperty Name="FirstName" ColumnName="FirstName" />
+                <ScalarProperty Name="SecondName" ColumnName="SecondName" />
+                <ScalarProperty Name="Partronumic" ColumnName="Partronumic" />
+                <ScalarProperty Name="NumberPhone" ColumnName="NumberPhone" />
+                <ScalarProperty Name="Login" ColumnName="Login" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Нет" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

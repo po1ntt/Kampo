@@ -1,0 +1,71 @@
+﻿<Page x:Class="KampoClientWPF.Views.Pages.AboutProduct"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KampoClientWPF.Views.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="AboutProduct"
+      xmlns:vm="clr-namespace:KampoClientWPF.ViewsModels"
+      Background="#111">
+ 
+    <Grid>
+        <Canvas Panel.ZIndex="100">
+            <Border Canvas.Right="30" Canvas.Bottom="30" Background="White" CornerRadius="20" Padding="5">
+
+                <StackPanel Orientation="Horizontal">
+                    <ToggleButton IsChecked="{Binding  ReadSetting,Mode=TwoWay}" Margin="0,0,5,0" Click="ToogleButtonClick" Background="#80373737" x:Name="ReadChangesButton" Style="{StaticResource MaterialDesignActionAccentToggleButton}" >
+
+                    </ToggleButton>
+                    <TextBlock VerticalAlignment="Center" FontSize="20" Text="Разрешить изменения" Foreground="Black" FontWeight="DemiBold"></TextBlock>
+                </StackPanel>
+          
+            </Border>
+        </Canvas>
+        <ScrollViewer>
+           
+            <StackPanel Grid.Row="0">
+            <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                    <TextBox FontSize="40" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.ProductName}" TextWrapping="Wrap" Foreground="White"></TextBox>
+            </Border>
+            <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                    <TextBox FontSize="25" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.ProductDescription}" TextWrapping="Wrap" Foreground="White"></TextBox>
+            </Border>
+            <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                    <TextBox FontSize="25" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.ProductsCategory.CategoryName}" TextWrapping="Wrap" Foreground="White"></TextBox>
+            </Border>
+            <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                    <TextBox FontSize="25" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.CountProduct, StringFormat='Кол-во на складе {0}'}" TextWrapping="Wrap" Foreground="White"></TextBox>
+            </Border>
+            <Border Margin="5"  Padding="10" CornerRadius="3" Background="#80373737">
+                    <StackPanel>
+                        <TextBlock   FontSize="25" Text="Характеристка" Foreground="White"></TextBlock>
+                        <ListView  ItemsSource="{Binding ProductItem.ProductsProperties}">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="1*"></ColumnDefinition>
+                                            <ColumnDefinition  Width="1*"></ColumnDefinition>
+                                        </Grid.ColumnDefinitions>
+                                        <Border Grid.Column="0" Margin="10">
+                                            <TextBlock Text="{Binding Properties.NameProperty,StringFormat='--{0}:'}"></TextBlock>
+
+                                        </Border>
+                                        <Grid Grid.Column="1" HorizontalAlignment="Stretch">
+                                            <TextBox IsEnabled="{Binding ReadSetting}" Grid.Column="1" Text="{Binding ValueProperty}"></TextBox>
+
+                                        </Grid>
+                                    </Grid>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackPanel>
+              </Border>
+                <Button  Content="Обновить данные"  Background="#80373737" Margin="5"></Button>
+
+            </StackPanel>
+        </ScrollViewer>
+    </Grid>
+</Page>

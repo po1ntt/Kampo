@@ -1,0 +1,145 @@
+﻿using KampoClientWPF.DataService;
+using KampoClientWPF.DataService.DBservice;
+using KampoClientWPF.Models;
+using KampoClientWPF.Views.Pages;
+using System;
+using System.Collections.Generic;
+using System.Collections.ObjectModel;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace KampoClientWPF.ViewsModels
+{
+    public class ProductAddVM : BaseVM
+    {
+        private Task LoadData { get; set; }
+        private Products _Product;
+
+        public Products Product
+        {
+            get { return _Product; }
+            set
+            {
+                _Product = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private ObservableCollection<ProductsProperties> _productProperties;
+        public ObservableCollection<ProductsProperties> productsProperties
+        {
+            get { return _productProperties; }
+            set
+            {
+                _productProperties = value;
+                OnPropertyChanged();
+            }
+
+        }
+
+        public ObservableCollection<ProductsCategory> ProductCategorie { get; set; } 
+       
+
+        public ObservableCollection<Models.Properties> PropertiesList { get; set; }
+
+
+        private RelayCommand _PropertyAddToProduct;
+        public RelayCommand PropertyAddToProduct
+        {
+            get
+            {
+                return _PropertyAddToProduct ??
+                    (_PropertyAddToProduct = new RelayCommand(obj =>
+                    {
+                        productsProperties.Add(new ProductsProperties
+                        {
+                            product_id = Product.id_product,
+                            Properties = Propertie,
+                            ValueProperty = ValueProperty
+                        });
+                    }));
+            }
+        }
+        private RelayCommand _AddProduct;
+        public RelayCommand AddProduct
+        {
+            get
+            {
+                return _AddProduct ??
+                    (_AddProduct = new RelayCommand( async obj =>
+                    {
+                        ProductService productService = new ProductService();
+                        Product.ProductsProperties = productsProperties;
+                        await productService.AddProductAsync(Product);
+                        PropertyService propertyService = new PropertyService();
+                        await propertyService.AddToProductProperties(productsProperties, Product.ProductName);
+                        productsProperties.Clear();
+                        Product = null;
+
+
+                    }));
+            }
+        }
+
+        private Models.Properties _Properties;
+
+        public Models.Properties Propertie
+        {
+            get { return _Properties; }
+            set
+            {
+                _Properties = value;
+                OnPropertyChanged();
+            }
+
+        }
+        private string _ValueProperty;
+
+        public string ValueProperty
+        {
+            get { return _ValueProperty; }
+            set
+            {
+                _ValueProperty = value;
+                OnPropertyChanged();
+            }
+        }
+        public ProductAddVM()
+        {
+            Product = new Products();
+            productsProperties = new ObservableCollection<ProductsProperties>();
+            ProductCategorie = new ObservableCollection<ProductsCategory>();
+            PropertiesList = new ObservableCollection<Models.Properties>();
+            LoadData = InitAsync();
+
+        }
+
+        public async Task InitAsync()
+        {
+           await LoadProductCategory();
+           await LoadPropertiesList();
+        }
+
+        public async Task LoadProductCategory()
+        {
+            CategoryService categoryService = new CategoryService();
+            List<ProductsCategory> products = await categoryService.GetCategoryAsync();
+            foreach (var item in products)
+            {
+                ProductCategorie.Add(item);
+            }
+        }
+        public async Task LoadPropertiesList()
+        {
+            PropertyService PropertyService = new PropertyService();
+            List<Models.Properties> products = await PropertyService.GetPropertiesAsync();
+            foreach (var item in products)
+            {
+                PropertiesList.Add(item);
+            }
+        }
+    }
+  
+
+}
