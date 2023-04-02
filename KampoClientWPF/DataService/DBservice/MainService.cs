@@ -9,6 +9,7 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class MainService
     {
+
         public readonly KampoDBEntities context;
         public MainService()
         {

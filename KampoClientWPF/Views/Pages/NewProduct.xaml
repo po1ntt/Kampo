@@ -16,9 +16,16 @@
         <ScrollViewer>
 
             <StackPanel Grid.Row="0">
-
+                
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <TextBox FontSize="40" materialDesign:HintAssist.Hint="Название" Text="{Binding Product.ProductName}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                </Border>
+                <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                    <StackPanel>
+                        <TextBox FontSize="25" materialDesign:HintAssist.Hint="Ссылка на картинку" Text="{Binding ProductImage}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                        <Image Width="400" Height="250" Margin="10" Source="{Binding ImageSourse}">
+                        </Image>
+                    </StackPanel>
                 </Border>
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <TextBox FontSize="25"  materialDesign:HintAssist.Hint="Описание"  Text="{Binding Product.ProductDescription}" TextWrapping="Wrap" Foreground="White"></TextBox>

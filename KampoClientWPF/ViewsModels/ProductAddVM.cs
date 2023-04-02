@@ -26,6 +26,18 @@ namespace KampoClientWPF.ViewsModels
             }
 
         }
+        private string _ProductImage;
+
+        public string ProductImage
+        {
+            get { return _ProductImage; }
+            set { _ProductImage = value;
+                ImageSourse = _ProductImage;
+                Product.ImageUrl = _ProductImage;
+                OnPropertyChanged();
+            }
+        }
+
         private ObservableCollection<ProductsProperties> _productProperties;
         public ObservableCollection<ProductsProperties> productsProperties
         {
@@ -36,6 +48,16 @@ namespace KampoClientWPF.ViewsModels
                 OnPropertyChanged();
             }
 
+        }
+
+        private string _ImageSourse;
+
+        public string ImageSourse
+        {
+            get { return _ImageSourse; }
+            set { _ImageSourse = value;
+                OnPropertyChanged();
+            }
         }
 
         public ObservableCollection<ProductsCategory> ProductCategorie { get; set; } 
@@ -75,6 +97,9 @@ namespace KampoClientWPF.ViewsModels
                         PropertyService propertyService = new PropertyService();
                         await propertyService.AddToProductProperties(productsProperties, Product.ProductName);
                         productsProperties.Clear();
+                        Logger.AddData(UsersService.UserInfo, "Продукт", Product.ProductName);
+                        ProductImage = null;
+                        ImageSourse = "\\Resource\\ImagesProducts\\imagenotfound.png";
                         Product = null;
 
 
@@ -111,7 +136,9 @@ namespace KampoClientWPF.ViewsModels
             productsProperties = new ObservableCollection<ProductsProperties>();
             ProductCategorie = new ObservableCollection<ProductsCategory>();
             PropertiesList = new ObservableCollection<Models.Properties>();
+            ImageSourse = "\\Resource\\ImagesProducts\\imagenotfound.png";
             LoadData = InitAsync();
+           
 
         }
 

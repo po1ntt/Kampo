@@ -1,8 +1,10 @@
 ﻿using KampoClientWPF.DataService;
 using KampoClientWPF.DataService.DBservice;
+using KampoClientWPF.DataService.FiltersModels;
 using KampoClientWPF.Models;
 using KampoClientWPF.Views.Pages;
 using KampoClientWPF.Views.Windows;
+using MaterialDesignThemes.Wpf;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -14,7 +16,6 @@ namespace KampoClientWPF.ViewsModels
 {
     public class ProductsVM : BaseVM
     {
-        private Task InitAsyn { get; set; }
         private Products _SendProduct;
 
         public Products SendProduct
@@ -26,7 +27,8 @@ namespace KampoClientWPF.ViewsModels
             
         }
         public ObservableCollection<Products> ProductsList { get; set; }
-       
+
+
         private RelayCommand _AddNewProduct;
         public RelayCommand AddNewProduct
         {
@@ -53,31 +55,92 @@ namespace KampoClientWPF.ViewsModels
             }
         }
 
-        private RelayCommand _LoadData;
-        public RelayCommand LoadData
+        private RelayCommand _NameFilterCollection;
+        public RelayCommand NameFilterCollectio
         {
             get
             {
-                return _LoadData ??
-                    (_LoadData = new RelayCommand(async obj =>
+                return _NameFilterCollection ??
+                    (_NameFilterCollection = new RelayCommand(async obj =>
                     {
-                        await GetProducts();
+                        string name = obj as string;
+
                     }));
             }
         }
+        private string _ProductNameFilter;
+
+        public string ProductNameFilter
+        {
+            get { return _ProductNameFilter; }
+            set { _ProductNameFilter = value;
+                FilterProduct();
+                OnPropertyChanged();
+            }
+        }
+        private ProductsCategory _ProductsCategoryFilter;
+
+        public ProductsCategory ProductsCategoryFilter
+        {
+            get { return _ProductsCategoryFilter; }
+            set { _ProductsCategoryFilter = value;
+                FilterProduct();
+               
+                OnPropertyChanged();
+            }
+        }
+        private ObservableCollection<ProductsCategory> _ProductsCategoryList;
+
+        public ObservableCollection<ProductsCategory> ProductsCategoryList
+        {
+            get { return _ProductsCategoryList; }
+            set
+            {
+                _ProductsCategoryList = value;
+               
+                OnPropertyChanged();
+            }
+        }
+
+
+        public  async void FilterProduct()
+        {
+            ProductsList.Clear();
+            List<Products> products = await productService.GetProductsAsync();
+
+            if (ProductNameFilter != null)
+            {
+                products = products.Where(p=>p.ProductName.ToLower().Contains(ProductNameFilter.ToLower())).ToList();
+            }
+            if(ProductsCategoryFilter.CategoryName != "Не выбрано") 
+            {
+                products = products.Where(p => p.ProductsCategory.CategoryName == ProductsCategoryFilter.CategoryName).ToList();
+
+            }
+            if (ProductNameFilter == null && ProductsCategoryFilter.CategoryName == "Не выбрано")
+            {
+               LoadProducts(ProductsList);
+            }
+            if(products.Count != 0 && ProductNameFilter != null || ProductsCategoryFilter.CategoryName != "Не выбрано")
+            {
+                foreach(var item in products)
+                {
+                    ProductsList.Add(item);
+                }
+            }
+        }
+
         public ProductsVM()
         {
             ProductsList = new ObservableCollection<Products>();
-            InitAsyn = GetProducts();
-        }
-        public async Task GetProducts()
-        {
-            ProductService ProductService = new ProductService();
-            List<Products> products = await ProductService.GetProductsAsync();
-            foreach(var item in products)
+            LoadProducts(ProductsList);
+            ProductsCategoryList = new ObservableCollection<ProductsCategory>();
+            LoadCategories(ProductsCategoryList);
+            ProductsCategoryList.Insert(0, new ProductsCategory()
             {
-                ProductsList.Add(item);
-            }
+                CategoryName = "Не выбрано"
+            });
         }
+      
     }
 }

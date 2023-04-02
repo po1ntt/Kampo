@@ -19,6 +19,7 @@ namespace KampoClientWPF.Models
         public string ActionType { get; set; }
         public string ObjectChanged { get; set; }
         public string NameObject { get; set; }
+        public Nullable<System.DateTime> DateCreated { get; set; }
     
         public virtual Users Users { get; set; }
     }

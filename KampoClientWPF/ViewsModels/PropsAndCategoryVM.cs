@@ -58,6 +58,7 @@ namespace KampoClientWPF.ViewsModels
                             properties = await propertyService.FindPropertyByNameAsync(PropsValue);
                             PropsList.Add(properties);
                             PropsValue = string.Empty;
+                            Logger.AddData(UsersService.UserInfo, "Cвойство", PropsValue);
                         }
                         else
                         {
@@ -84,6 +85,8 @@ namespace KampoClientWPF.ViewsModels
                             category = await categoryService.FindCategoryByNameAsync(CategoryValue);
                             CategoryList.Add(category);
                             CategoryValue = string.Empty;
+                            Logger.AddData(UsersService.UserInfo, "Категория", CategoryValue);
+
 
                         }
                         else

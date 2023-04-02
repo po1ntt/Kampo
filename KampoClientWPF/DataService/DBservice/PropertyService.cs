@@ -15,7 +15,26 @@ namespace KampoClientWPF.DataService.DBservice
     {
         public async Task<List<Models.Properties>> GetPropertiesAsync() => await context.Properties.ToListAsync();
         public async Task<Models.Properties> FindPropertyByNameAsync(string name) => await context.Properties.FirstOrDefaultAsync(p=> p.NameProperty == name);
+        public async Task<bool> DeleteProductProperties(List<ProductsProperties> productsProperties)
+        {
+            try
+            {
+                foreach (var productprops in productsProperties)
+                {
+                    var keytodelete = context.ProductsProperties.FirstOrDefault (p => p.property_id == productprops.property_id);
+                    context.ProductsProperties.Remove(keytodelete);
+                }
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception exp)
+            {
 
+                Console.WriteLine(exp.Message);
+                return false;
+            }
+
+        }
         public async Task<bool> AddToProductProperties(ObservableCollection<ProductsProperties> productsProperties, string nameproduct)
         {
 
@@ -62,6 +81,23 @@ namespace KampoClientWPF.DataService.DBservice
                 return exp.Message;
             }
             
+        }
+        public async Task<bool> DeleteProperty(Models.Properties properties)
+        {
+            try
+            {
+                var KeyToDelete = await context.Properties.FirstOrDefaultAsync(p => p.id_propertries == properties.id_propertries);
+                context.Properties.Remove(KeyToDelete);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception exp)
+            {
+
+                Console.WriteLine(exp.Message);
+                return false;
+            }
+
         }
 
 

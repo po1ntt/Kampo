@@ -40,5 +40,19 @@ namespace KampoClientWPF.Components.Header
         {
             Application.Current.Shutdown();
         }
+        private void MaximizeOrStandart(object sender, MouseButtonEventArgs e)
+        {
+            if(App.CurrentWindow.WindowState == WindowState.Maximized)
+            {
+                App.CurrentWindow.WindowState = WindowState.Normal;
+
+            }
+            else
+            {
+                App.CurrentWindow.WindowState = WindowState.Maximized;
+
+            }
+
+        }
     }
 }

@@ -11,19 +11,19 @@
     <Grid>
         <DataGrid x:Name="dgLogs" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Header="Фио пользователя" Width="1*">
+                <DataGridTextColumn Binding="{Binding Users.FIO}" Header="Фио пользователя" Width="1*">
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Действие" Width="1*">
+                <DataGridTextColumn Binding="{Binding ActionType}" Header="Действие" Width="1*">
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Тип обьекта изменения" Width="1*">
+                <DataGridTextColumn  Binding="{Binding ObjectChanged}" Header="Тип обьекта изменения" Width="1*">
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Название обьекта" Width="1*">
+                <DataGridTextColumn Binding="{Binding NameObject}" Header="Название обьекта" Width="1*">
 
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Дата изменения" Width="1*">
+                <DataGridTextColumn Binding="{Binding DateCreated,StringFormat=dd.MM.yyy}" Header="Дата изменения" Width="1*">
 
                 </DataGridTextColumn>
             </DataGrid.Columns>

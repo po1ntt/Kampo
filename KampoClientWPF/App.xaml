@@ -14,6 +14,14 @@
             <Style TargetType="TextBlock">
                 <Setter Property="Foreground" Value="White"/>
             </Style>
+            <Style TargetType="ToggleButton" BasedOn="{StaticResource MaterialDesignSwitchToggleButton}">
+                <Setter Property="Background" Value="White"></Setter>
+                <Setter Property="Foreground" Value="White"></Setter>
+                <Setter Property="BorderBrush" Value="White"></Setter>
+               
+
+
+            </Style>
         
             <ResourceDictionary.MergedDictionaries>
             <materialDesign:BundledTheme BaseTheme="Dark" PrimaryColor="BlueGrey" SecondaryColor="DeepOrange" />

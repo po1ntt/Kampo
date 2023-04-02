@@ -14,6 +14,7 @@
           <Property Name="ActionType" Type="nvarchar(max)" />
           <Property Name="ObjectChanged" Type="nvarchar(max)" />
           <Property Name="NameObject" Type="nvarchar(max)" />
+          <Property Name="DateCreated" Type="date" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -24,6 +25,7 @@
           <Property Name="productscategory_id" Type="int" Nullable="false" />
           <Property Name="ProductDescription" Type="nvarchar(max)" />
           <Property Name="CountProduct" Type="int" />
+          <Property Name="ImageUrl" Type="nvarchar(max)" />
         </EntityType>
         <EntityType Name="ProductsCategory">
           <Key>
@@ -83,7 +85,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_Products_ProductsCategory">
-          <End Role="ProductsCategory" Type="Self.ProductsCategory" Multiplicity="1" />
+          <End Role="ProductsCategory" Type="Self.ProductsCategory" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Products" Type="Self.Products" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="ProductsCategory">
@@ -95,7 +99,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductsProperties_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
+          <End Role="Products" Type="Self.Products" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProductsProperties" Type="Self.ProductsProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Products">
@@ -107,7 +113,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_ProductsProperties_Properties">
-          <End Role="Properties" Type="Self.Properties" Multiplicity="0..1" />
+          <End Role="Properties" Type="Self.Properties" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="ProductsProperties" Type="Self.ProductsProperties" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Properties">
@@ -157,6 +165,7 @@
           <Property Name="ObjectChanged" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="NameObject" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="Users" Relationship="Self.FK_LogsUsers_Users" FromRole="LogsUsers" ToRole="Users" />
+          <Property Name="DateCreated" Type="DateTime" Precision="0" />
         </EntityType>
         <EntityType Name="Products">
           <Key>
@@ -169,6 +178,7 @@
           <Property Name="CountProduct" Type="Int32" />
           <NavigationProperty Name="ProductsCategory" Relationship="Self.FK_Products_ProductsCategory" FromRole="Products" ToRole="ProductsCategory" />
           <NavigationProperty Name="ProductsProperties" Relationship="Self.FK_ProductsProperties_Products" FromRole="Products" ToRole="ProductsProperties" />
+          <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
         </EntityType>
         <EntityType Name="ProductsCategory">
           <Key>
@@ -302,6 +312,7 @@
           <EntitySetMapping Name="LogsUsers">
             <EntityTypeMapping TypeName="KampoDBModel.LogsUsers">
               <MappingFragment StoreEntitySet="LogsUsers">
+                <ScalarProperty Name="DateCreated" ColumnName="DateCreated" />
                 <ScalarProperty Name="id_logs" ColumnName="id_logs" />
                 <ScalarProperty Name="user_id" ColumnName="user_id" />
                 <ScalarProperty Name="ActionType" ColumnName="ActionType" />
@@ -313,6 +324,7 @@
           <EntitySetMapping Name="Products">
             <EntityTypeMapping TypeName="KampoDBModel.Products">
               <MappingFragment StoreEntitySet="Products">
+                <ScalarProperty Name="ImageUrl" ColumnName="ImageUrl" />
                 <ScalarProperty Name="id_product" ColumnName="id_product" />
                 <ScalarProperty Name="ProductName" ColumnName="ProductName" />
                 <ScalarProperty Name="productscategory_id" ColumnName="productscategory_id" />

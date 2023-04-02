@@ -12,7 +12,23 @@ namespace KampoClientWPF.DataService.DBservice
     {
         public async Task<List<ProductsCategory>> GetCategoryAsync() => await context.ProductsCategory.ToListAsync();
         public async Task<ProductsCategory> FindCategoryByNameAsync(string name) => await context.ProductsCategory.FirstOrDefaultAsync(p => p.CategoryName == name);
+        public async Task<bool> DeleteCategory(ProductsCategory productsCategory)
+        {
+            try
+            {
+                var KeyToDelete = await context.ProductsCategory.FirstOrDefaultAsync(p => p.id_productcategory == productsCategory.id_productcategory);
+                context.ProductsCategory.Remove(KeyToDelete);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception exp)
+            {
 
+                Console.WriteLine(exp.Message);
+                return false;
+            }
+
+        }
         public async Task<string> NewCategory(string namecategory)
         {
             try

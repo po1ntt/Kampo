@@ -1,4 +1,5 @@
 ﻿using KampoClientWPF.Models;
+using KampoClientWPF.ViewsModels;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -21,14 +22,11 @@ namespace KampoClientWPF.Views.Pages
     /// </summary>
     public partial class AboutProduct : Page
     {
-        public Products ProductItem { get; set; }
-        public bool ReadSetting { get; set; }
         public AboutProduct(Products products)
         {
             InitializeComponent();
-            ProductItem = products;
-            DataContext = this;
-         
+            DataContext = new AboutProductVM(products);
+            cmbCategory.SelectedIndex = products.productscategory_id - 1;
         }
 
         private void backbutton_Click(object sender, RoutedEventArgs e)
@@ -38,16 +36,6 @@ namespace KampoClientWPF.Views.Pages
 
       
 
-        private void ToogleButtonClick(object sender, RoutedEventArgs e)
-        {
-            if (ReadChangesButton.IsChecked == true)
-            {
-               
-            }
-            else
-            {
-
-            }
-        }
+      
     }
 }

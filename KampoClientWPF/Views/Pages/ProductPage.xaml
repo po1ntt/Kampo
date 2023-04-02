@@ -10,32 +10,63 @@
      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
       xmlns:vm="clr-namespace:KampoClientWPF.ViewsModels"
       x:Name="ProductsPage"
-      
+      Background="#80373737"
       >
- 
+   
     <Page.DataContext>
         <vm:ProductsVM>
             
         </vm:ProductsVM>
     </Page.DataContext>
-    <Grid>
-        <Canvas Panel.ZIndex="100">
+        <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <Canvas Panel.ZIndex="1">
             <Button Background="Green" Content="Новый продукт" Canvas.Right="10" Command="{Binding AddNewProduct}" Canvas.Bottom="10"></Button>
         </Canvas>
         <StackPanel>
+            
             <Border Padding="5" Background="#80373737" Height="50" VerticalAlignment="Top">
-                <StackPanel Orientation="Horizontal">
-                    <TextBlock VerticalAlignment="Center" FontSize="20" Margin="0,0,10,0">Фильтры:</TextBlock>
-                    <TextBox Height="40" BorderBrush="#3023ba" Width="200" materialDesign:HintAssist.Hint="Название" FontSize="20"  ></TextBox>
-                    <ComboBox  Margin="20,0,0,0"  Height="40" Width="200" materialDesign:HintAssist.Hint="По типу:" VerticalAlignment="Center" FontSize="20" ></ComboBox>
-                </StackPanel>
+                <Grid>
+                   
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock VerticalAlignment="Center" FontSize="20" Margin="0,0,10,0">Фильтры:</TextBlock>
+                        <TextBox Text="{Binding ProductNameFilter,Mode=TwoWay}" TextChanged="ProductNameFilter_TextChanged" Foreground="White" Height="40" BorderBrush="#3023ba" Width="200" materialDesign:HintAssist.Hint="Название" FontSize="20"  ></TextBox>
+                        <ComboBox  x:Name="CMBproductscatFilter" ItemsSource="{Binding ProductsCategoryList}" SelectedItem="{Binding ProductsCategoryFilter}"  DisplayMemberPath="CategoryName" Margin="20,0,0,0"  Height="40" BorderBrush="#3023ba"  Width="200" materialDesign:HintAssist.Hint="По типу:" VerticalAlignment="Center" FontSize="20" ></ComboBox>
+
+                    </StackPanel>
+                    <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
+                        <Button Background="DarkOrange"   Margin="5" Command="{Binding AddNewProduct}">
+                            <TextBlock  FontWeight="Bold">Поступления</TextBlock>
+                        </Button>
+
+                        <Button Background="Green" Content="Новый продукт" Margin="5"  Command="{Binding AddNewProduct}" ></Button>
+
+                    </StackPanel>
+                </Grid>
+                
             </Border>
-            <DataGrid x:Name="DgProductList" Background="#80373737"  Foreground="White" AutoGenerateColumns="False" RowHeight="100" ItemsSource="{Binding ProductsList}" IsReadOnly="True">
-              
+       </StackPanel>
+
+                <DataGrid Grid.Row="1" x:Name="DgProductList" VirtualizingPanel.ScrollUnit="Pixel" ScrollViewer.VerticalScrollBarVisibility="Visible"  Background="#80373737"  Foreground="White" AutoGenerateColumns="False" RowHeight="100" ItemsSource="{Binding ProductsList}" IsReadOnly="True">
+                <DataGrid.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem  Header="Обновить" Command="{Binding LoadData}"></MenuItem>
+                    </ContextMenu>
+                </DataGrid.ContextMenu>
                 <DataGrid.InputBindings>
                     <KeyBinding Key="Select" Command="{Binding SelectProduct}" />
                 </DataGrid.InputBindings>
                 <DataGrid.Columns>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Image Source="{Binding ImageUrl}"></Image>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                     <DataGridTextColumn Header="Название" Foreground="White" Binding="{Binding ProductName}" Width="1*">
                         <DataGridTextColumn.ElementStyle>
                             <Style>
@@ -79,6 +110,5 @@
                     </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </DataGrid>
-        </StackPanel>
     </Grid>
 </Page>

@@ -25,11 +25,18 @@ namespace KampoClientWPF.Views.Pages
         public ProductPage()
         {
             InitializeComponent();
+            CMBproductscatFilter.SelectedIndex = 0;
         }
 
         private void GotoAboutProduct(object sender, RoutedEventArgs e)
         {
             NavigationFrame.NavFrame.Navigate(new AboutProduct(DgProductList.SelectedItem as Products));   
+        }
+
+        private void ProductNameFilter_TextChanged(object sender, TextChangedEventArgs e)
+        {
+            var binding = ((TextBox)sender).GetBindingExpression(TextBox.TextProperty);
+            binding.UpdateSource();
         }
     }
 }

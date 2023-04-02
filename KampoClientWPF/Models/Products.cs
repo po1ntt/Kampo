@@ -25,6 +25,7 @@ namespace KampoClientWPF.Models
         public int productscategory_id { get; set; }
         public string ProductDescription { get; set; }
         public Nullable<int> CountProduct { get; set; }
+        public string ImageUrl { get; set; }
     
         public virtual ProductsCategory ProductsCategory { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]

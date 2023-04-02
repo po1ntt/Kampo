@@ -49,6 +49,7 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.8.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.8.0\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.Windows.Design.Interaction, Version=4.3.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Xaml.Behaviors, Version=1.1.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Xaml.Behaviors.Wpf.1.1.39\lib\net45\Microsoft.Xaml.Behaviors.dll</HintPath>
     </Reference>
@@ -86,7 +87,10 @@
     <Compile Include="DataService\DBservice\ProductService.cs" />
     <Compile Include="DataService\DBservice\PropertyService.cs" />
     <Compile Include="DataService\DBservice\UsersService.cs" />
+    <Compile Include="DataService\FiltersModels\ProductFilter.cs" />
+    <Compile Include="DataService\Logger\Logger.cs" />
     <Compile Include="DataService\NavigationFrame.cs" />
+    <Compile Include="DataService\PageBehavior.cs" />
     <Compile Include="DataService\RelayCommand.cs" />
     <Compile Include="Models\LogsUsers.cs">
       <DependentUpon>Model.tt</DependentUpon>
@@ -124,6 +128,7 @@
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewsModels\AboutProductVM.cs" />
     <Compile Include="ViewsModels\BaseVM.cs" />
     <Compile Include="ViewsModels\ProductAddVM.cs" />
     <Compile Include="ViewsModels\ProductsVM.cs" />
@@ -133,6 +138,9 @@
     </Compile>
     <Compile Include="Views\Pages\Documents.xaml.cs">
       <DependentUpon>Documents.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\GoodsReceipPage.xaml.cs">
+      <DependentUpon>GoodsReceipPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Logs.xaml.cs">
       <DependentUpon>Logs.xaml</DependentUpon>
@@ -188,6 +196,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Documents.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\GoodsReceipPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -254,9 +266,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="DataService\Logger\" />
-    <Folder Include="DataService\Properties\" />
-    <Folder Include="DataService\User\" />
     <Folder Include="Resource\DataTemplate\" />
   </ItemGroup>
   <ItemGroup>
@@ -280,6 +289,7 @@
       <DependentUpon>Model.edmx</DependentUpon>
       <LastGenOutput>Model.cs</LastGenOutput>
     </Content>
+    <Resource Include="Resource\ImagesProducts\imagenotfound.png" />
     <Resource Include="Resource\ImagesProducts\polka-grifon.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

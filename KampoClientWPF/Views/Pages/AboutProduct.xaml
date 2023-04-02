@@ -4,36 +4,57 @@
       xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:KampoClientWPF.Views.Pages"
+      xmlns:materialui="http://materialdesigninxaml.net/winfx/xaml/themes"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AboutProduct"
-      xmlns:vm="clr-namespace:KampoClientWPF.ViewsModels"
-      Background="#111">
+      xmlns:vm="clr-namespace:KampoClientWPF.ViewsModels" d:DataContext="{d:DesignInstance Type=vm:AboutProductVM}"
+      xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+      Background="#111"
+      x:Name="thisname"
+      >
+   
  
     <Grid>
-        <Canvas Panel.ZIndex="100">
-            <Border Canvas.Right="30" Canvas.Bottom="30" Background="White" CornerRadius="20" Padding="5">
-
-                <StackPanel Orientation="Horizontal">
-                    <ToggleButton IsChecked="{Binding  ReadSetting,Mode=TwoWay}" Margin="0,0,5,0" Click="ToogleButtonClick" Background="#80373737" x:Name="ReadChangesButton" Style="{StaticResource MaterialDesignActionAccentToggleButton}" >
-
-                    </ToggleButton>
-                    <TextBlock VerticalAlignment="Center" FontSize="20" Text="Разрешить изменения" Foreground="Black" FontWeight="DemiBold"></TextBlock>
-                </StackPanel>
-          
-            </Border>
-        </Canvas>
+        
         <ScrollViewer>
            
             <StackPanel Grid.Row="0">
-            <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                <Border Margin="5" Padding="10" CornerRadius="3" Background="White">
+
+                    <StackPanel Orientation="Horizontal">
+                        <Border Cursor="Hand" Margin="0,0,20,0" Background="#111111" CornerRadius="50">
+                            <Border.InputBindings>
+                                <MouseBinding MouseAction="LeftClick" Command="{Binding GoBackCommand}"/>
+                            </Border.InputBindings>
+                            <materialui:PackIcon Kind="ArrowBackCircle" Height="30" Width="30" Foreground="White" >
+                          
+                            </materialui:PackIcon>
+                        </Border>
+                    <ToggleButton IsChecked="{Binding  ReadSetting}" Style="{StaticResource MaterialDesignActionAccentToggleButton}"  Margin="0,0,5,0"  Background="#80373737"  >
+
+                    </ToggleButton>
+                    <TextBlock VerticalAlignment="Center" FontWeight="Bold" FontSize="18" Text="Разрешить изменения" Foreground="Black" ></TextBlock>
+                        
+                </StackPanel>
+                    
+                </Border>
+
+                <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
+                    <StackPanel>
+                        <TextBox FontSize="25" materialDesign:HintAssist.Hint="Ссылка на картинку" Text="{Binding ProductImage}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                        <Image Width="400" Height="250" Margin="10" Source="{Binding ImageSourse}">
+                        </Image>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <TextBox FontSize="40" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.ProductName}" TextWrapping="Wrap" Foreground="White"></TextBox>
             </Border>
             <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <TextBox FontSize="25" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.ProductDescription}" TextWrapping="Wrap" Foreground="White"></TextBox>
             </Border>
             <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
-                    <TextBox FontSize="25" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.ProductsCategory.CategoryName}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                    <ComboBox x:Name="cmbCategory" FontSize="25" IsEnabled="{Binding  ReadSetting}" SelectedItem="{Binding SelectedProductsCategory}" ItemsSource="{Binding ListProductsCategory}" DisplayMemberPath="CategoryName" Foreground="White"></ComboBox>
             </Border>
             <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <TextBox FontSize="25" IsEnabled="{Binding  ReadSetting}" Text="{Binding ProductItem.CountProduct, StringFormat='Кол-во на складе {0}'}" TextWrapping="Wrap" Foreground="White"></TextBox>
@@ -41,7 +62,7 @@
             <Border Margin="5"  Padding="10" CornerRadius="3" Background="#80373737">
                     <StackPanel>
                         <TextBlock   FontSize="25" Text="Характеристка" Foreground="White"></TextBlock>
-                        <ListView  ItemsSource="{Binding ProductItem.ProductsProperties}">
+                        <ListView Height="250"  ScrollViewer.VerticalScrollBarVisibility="Visible" materialui:ScrollViewerAssist.BubbleVerticalScroll="True" Style="{StaticResource MaterialDesignListView}"  VirtualizingPanel.ScrollUnit="Pixel"   ItemsSource="{Binding ProductItem.ProductsProperties}">
                             <ListView.ItemTemplate>
                                 <DataTemplate>
                                     <Grid HorizontalAlignment="Center" VerticalAlignment="Center">
@@ -63,7 +84,7 @@
                         </ListView>
                     </StackPanel>
               </Border>
-                <Button  Content="Обновить данные"  Background="#80373737" Margin="5"></Button>
+                <Button  Content="Обновить данные" IsEnabled="{Binding ReadSetting}" Command="{Binding UpdateProduct}"  Background="#80373737" Margin="5"></Button>
 
             </StackPanel>
         </ScrollViewer>

@@ -11,16 +11,40 @@ namespace KampoClientWPF.DataService.DBservice
     public class ProductService : MainService
     {
         public async Task<List<Products>> GetProductsAsync() => await context.Products.ToListAsync();
-        public async Task<bool> AddProductAsync(Products products)
+        public async Task<List<Products>> GetProductsByName(string name) => await context.Products.Where(p=> p.ProductName.ToLower().Contains(name.ToLower())).ToListAsync();
+        public async Task<List<Products>> GetProductsByCategoryName(string name) => await context.Products.Where(p => p.ProductsCategory.CategoryName == name).ToListAsync();
+        public async Task<bool> DeleteProduct(Products products)
         {
             try
             {
+                var producttodelete = await context.Products.FirstOrDefaultAsync(p => p.id_product == products.id_product);
+                context.Products.Remove(producttodelete);
+                await context.SaveChangesAsync();
+                return true;
+            }
+            catch (Exception exp)
+            {
+
+                Console.WriteLine(exp.Message);
+                return false;
+            }
+           
+        }
+        public async Task<bool> AddProductAsync(Products products)
+        {
+            try
+            { 
+                if(products.ImageUrl == null)
+                {
+                    products.ImageUrl = "/Resource/ImagesProducts/imagenotfound.png";
+                }
                 context.Products.Add(new Products()
                 {
                     ProductName= products.ProductName,
                     ProductDescription = products.ProductDescription,
                     productscategory_id = products.ProductsCategory.id_productcategory,
-                    CountProduct = products.CountProduct
+                    CountProduct = products.CountProduct,
+                    ImageUrl= products.ImageUrl,
                 });
                 context.SaveChanges();
                 return true;
@@ -31,6 +55,38 @@ namespace KampoClientWPF.DataService.DBservice
                 return false;
             }
             
+        }
+        public async Task<bool> UpdateProduct(Products products)
+        {
+            try
+            {
+                var ProductToUpdate = await context.Products.FirstOrDefaultAsync(p => p.id_product == products.id_product);
+                var productproperties = await context.ProductsProperties.Where(p => p.product_id == products.id_product).ToListAsync();
+                if(ProductToUpdate.ImageUrl == null)
+                {
+                    ProductToUpdate.ImageUrl = "/Resource/ImagesProducts/imagenotfound.png";
+                }
+                if (ProductToUpdate != null) 
+                {
+                    ProductToUpdate.productscategory_id = products.productscategory_id;
+                    ProductToUpdate.ProductName = products.ProductName;
+                    ProductToUpdate.CountProduct = products.CountProduct;
+                    ProductToUpdate.ProductDescription = products.ProductDescription;
+                    productproperties = products.ProductsProperties.ToList();
+                    ProductToUpdate.ImageUrl = products.ImageUrl;
+                    await context.SaveChangesAsync();
+                   
+
+
+                }
+                return true;
+            }
+            catch (Exception exp)
+            {
+                Console.WriteLine(exp.Message);
+                return false;
+            }
+
         }
 
     }

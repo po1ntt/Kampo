@@ -11,15 +11,13 @@ namespace KampoClientWPF.Models
 {
     using System;
     using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations.Schema;
-
+    
     public partial class Users
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Users()
         {
             this.LogsUsers = new HashSet<LogsUsers>();
-            FIO = $"{FirstName} {SecondName} {Partronumic}";
         }
     
         public int id_user { get; set; }
@@ -29,8 +27,7 @@ namespace KampoClientWPF.Models
         public string NumberPhone { get; set; }
         public string Login { get; set; }
         public string Password { get; set; }
-        [NotMapped]
-        public string FIO { get; set;} 
+    
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<LogsUsers> LogsUsers { get; set; }
     }

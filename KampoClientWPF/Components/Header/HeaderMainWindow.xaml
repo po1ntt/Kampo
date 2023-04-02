@@ -5,20 +5,23 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:KampoClientWPF.Components.Header"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Border Background="#80373737" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
-        <Grid>
+             d:DesignHeight="450" d:DesignWidth="800"
+             xmlns:materialui="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <Border  Background="#80373737" HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
+        <Grid >
             
      
         <Grid.ColumnDefinitions>
             <ColumnDefinition></ColumnDefinition>
             <ColumnDefinition Width="0.1*"></ColumnDefinition>
         </Grid.ColumnDefinitions>
-        <TextBlock x:Name="UserNameTxb" Text="UserName" FontSize="20" FontWeight="DemiBold" Foreground="White" Margin="20,0,0,0"></TextBlock>
+        <TextBlock VerticalAlignment="Center" x:Name="UserNameTxb" Text="UserName" FontSize="20" FontWeight="DemiBold" Foreground="White" Margin="20,0,0,0"></TextBlock>
         <StackPanel Grid.Column="2" Height="20" Orientation="Horizontal" HorizontalAlignment="Right">
-            <Image Margin="0,0,5,0" Source="/Resource/Images/svernutapp.png" PreviewMouseLeftButtonDown="SvernutApp" />
-
-            <Image Source="/Resource/Images/closeapp.png" PreviewMouseLeftButtonDown="CloseApp" />
+                <Image Cursor="Hand" Margin="0,0,5,0" Source="/Resource/Images/svernutapp.png" PreviewMouseLeftButtonDown="SvernutApp" />
+             <Border Cursor="Hand" Background="Aqua" CornerRadius="50" Margin="0,0,5,0" Height="20" Width="20"   Padding="1" PreviewMouseLeftButtonDown="MaximizeOrStandart">
+               <materialui:PackIcon Kind="Maximize" HorizontalAlignment="Center" Foreground="Black" Height="15" Width="15" VerticalAlignment="Center" />
+             </Border>
+                <Image Cursor="Hand" Source="/Resource/Images/closeapp.png" Margin="0,0,10,0" PreviewMouseLeftButtonDown="CloseApp" />
         </StackPanel>
         </Grid>
     </Border>
