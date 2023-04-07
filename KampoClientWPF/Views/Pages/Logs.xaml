@@ -6,12 +6,13 @@
       xmlns:local="clr-namespace:KampoClientWPF.Views.Pages"
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
-      Title="Logs">
+      Title="Logs"
+      Loaded="Page_Loaded">
 
     <Grid>
         <DataGrid x:Name="dgLogs" AutoGenerateColumns="False" IsReadOnly="True">
             <DataGrid.Columns>
-                <DataGridTextColumn Binding="{Binding Users.FIO}" Header="Фио пользователя" Width="1*">
+                <DataGridTextColumn Binding="{Binding Users.SecondName}" Header="Фио пользователя" Width="1*">
 
                 </DataGridTextColumn>
                 <DataGridTextColumn Binding="{Binding ActionType}" Header="Действие" Width="1*">

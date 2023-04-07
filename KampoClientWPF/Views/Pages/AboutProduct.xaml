@@ -15,10 +15,10 @@
       >
    
  
-    <Grid>
         
         <ScrollViewer>
-           
+        <Grid>
+
             <StackPanel Grid.Row="0">
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="White">
 
@@ -42,7 +42,7 @@
 
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <StackPanel>
-                        <TextBox FontSize="25" materialDesign:HintAssist.Hint="Ссылка на картинку" Text="{Binding ProductImage}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                        <TextBox IsEnabled="{Binding ReadSetting}" FontSize="25" materialDesign:HintAssist.Hint="Ссылка на картинку" Text="{Binding ProductImage}" TextWrapping="Wrap" Foreground="White"></TextBox>
                         <Image Width="400" Height="250" Margin="10" Source="{Binding ImageSourse}">
                         </Image>
                     </StackPanel>
@@ -87,6 +87,7 @@
                 <Button  Content="Обновить данные" IsEnabled="{Binding ReadSetting}" Command="{Binding UpdateProduct}"  Background="#80373737" Margin="5"></Button>
 
             </StackPanel>
-        </ScrollViewer>
-    </Grid>
+        </Grid>
+
+    </ScrollViewer>
 </Page>

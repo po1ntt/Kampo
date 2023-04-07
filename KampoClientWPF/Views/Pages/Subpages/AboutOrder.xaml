@@ -1,0 +1,86 @@
+﻿<Page x:Class="KampoClientWPF.Views.Pages.Subpages.AboutOrder"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:KampoClientWPF.Views.Pages.Subpages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+           xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+     xmlns:vm="clr-namespace:KampoClientWPF.ViewsModels" 
+      Background="#111">
+
+
+    <ScrollViewer>
+        
+    <Grid Margin="5">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.04*"> </RowDefinition>
+            <RowDefinition Height="1*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <Grid Grid.Row="0">
+                <Button Click="Button_Click" Background="#373737" Content="Назад" VerticalAlignment="Center" Cursor="Hand" >
+                   
+                  
+                </Button>
+
+
+        </Grid>
+        <Grid Grid.Row="1" >
+            <StackPanel>
+                <Border Margin="5" Background="#80373737" Padding="10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="25" Text="Номер заказа:"></TextBlock>
+                        <TextBlock FontSize="25" TextDecorations="Underline" Margin="10,0,0,0" Text="{Binding OrderInfo.NumberOrder}"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5" Background="#80373737" Padding="10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="25" Text="Дата создания:"></TextBlock>
+                        <TextBlock FontSize="25" TextDecorations="Underline" Margin="10,0,0,0" Text="{Binding OrderInfo.DateCreated, StringFormat=dd.MM.yyyy}"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5" Background="#80373737" Padding="10">
+                    <StackPanel Orientation="Horizontal">
+                        <TextBlock FontSize="25" Text="Дата завершения:"></TextBlock>
+                        <TextBlock FontSize="25" TextDecorations="Underline" Margin="10,0,0,0" Text="{Binding OrderInfo.DateComplete, StringFormat=dd.MM.yyyy}"></TextBlock>
+                    </StackPanel>
+                </Border>
+                <Border Margin="5" Background="#80373737" Padding="10">
+                    <Grid>
+                        <StackPanel Orientation="Horizontal">
+                            <TextBlock FontSize="25" Text="Статус:"></TextBlock>
+                            <TextBlock FontSize="25" TextDecorations="Underline" Margin="10,0,0,0" Text="{Binding OrderInfo.Status.StatusName}"></TextBlock>
+                        </StackPanel>
+                        <Button  Background="#111" VerticalContentAlignment="Center"
+                                 HorizontalAlignment="Right"
+                                 Command="{Binding UpdateOrderStatus}">
+                                <TextBlock FontSize="20">+Статус</TextBlock>
+                        </Button>
+                    </Grid>
+                </Border>
+                <Border Margin="5" Background="#80373737" Padding="10">
+                    <StackPanel Orientation="Vertical">
+                        <TextBlock FontSize="25" Text="Товары в заказе"></TextBlock>
+                        <DataGrid AutoGenerateColumns="False" Background="#80373737" Foreground="White" IsReadOnly="True" ItemsSource="{Binding OrdersItem}">
+                                <DataGrid.Columns>
+                                    <DataGridTextColumn Width="1*"  Header="Название" Binding="{Binding Products.ProductName}">
+                                        
+                                    </DataGridTextColumn>
+                                    <DataGridTextColumn   Header="Количество" Binding="{Binding ProductCount}">
+                                        
+                                    </DataGridTextColumn>
+                                </DataGrid.Columns>
+                        </DataGrid>
+                    </StackPanel>
+                   
+                </Border>
+                    <Border Margin="5" Background="#80373737" Padding="10">
+                        <Button Content="Акт приемки(Вывод в ворд)" Click="Word_1"></Button>
+                    </Border>
+               </StackPanel>
+        </Grid>
+    </Grid>
+    </ScrollViewer>
+
+</Page>

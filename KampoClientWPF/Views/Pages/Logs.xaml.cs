@@ -1,4 +1,5 @@
-﻿using System;
+﻿using KampoClientWPF.DataService.Logger;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -23,6 +24,18 @@ namespace KampoClientWPF.Views.Pages
         public Logs()
         {
             InitializeComponent();
+           
+        }
+        public async void Init()
+        {
+            Logger logger = new Logger();
+            dgLogs.ItemsSource = null;
+            dgLogs.ItemsSource =  await logger.GetLogs();
+        }
+
+        private void Page_Loaded(object sender, RoutedEventArgs e)
+        {
+            Init();
         }
     }
 }

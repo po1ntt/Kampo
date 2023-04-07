@@ -103,10 +103,10 @@ namespace KampoClientWPF.ViewsModels
         }
 
 
-        public  async void FilterProduct()
+        public  void FilterProduct()
         {
             ProductsList.Clear();
-            List<Products> products = await productService.GetProductsAsync();
+            List<Products> products = productService.GetProductsAsync();
 
             if (ProductNameFilter != null)
             {

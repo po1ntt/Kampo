@@ -12,8 +12,8 @@
     <Page.DataContext>
         <vm:ProductAddVM></vm:ProductAddVM>
     </Page.DataContext>
-    <Grid>
         <ScrollViewer>
+        <Grid>
 
             <StackPanel Grid.Row="0">
                 
@@ -75,6 +75,7 @@
                 <Button  Command="{Binding AddProduct}" Content="Добавить продукт"  Background="#80373737" Margin="5"></Button>
 
             </StackPanel>
-        </ScrollViewer>
-    </Grid>
+        </Grid>
+
+    </ScrollViewer>
 </Page>

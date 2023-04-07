@@ -68,12 +68,7 @@ namespace KampoClientWPF.Components.NavigationMenu
             App.CurrentWindow = signIn;
 
         }
-        private void Document_Click(object sender, MouseButtonEventArgs e)
-        {
-
-            DataService.NavigationFrame.NavFrame.Navigate(new Documents());
-
-        }
+       
         private void Logs_Click(object sender, MouseButtonEventArgs e)
         {
 
@@ -83,6 +78,10 @@ namespace KampoClientWPF.Components.NavigationMenu
         private void Product_Click(object sender, MouseButtonEventArgs e)
         {
             DataService.NavigationFrame.NavFrame.Navigate(new ProductPage());
+        }
+        private void Orders_Click(object sender, MouseButtonEventArgs e)
+        {
+            DataService.NavigationFrame.NavFrame.Navigate(new OrdersPage());
         }
         private void Property_Click(object sender, MouseButtonEventArgs e)
         {

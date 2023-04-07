@@ -42,6 +42,48 @@ namespace KampoClientWPF.ViewsModels
             await LoadProductCategory();
             await LoadPropertiesList();
         }
+        private RelayCommand _RemoveCategory;
+        public RelayCommand RemoveCategory
+        {
+            get
+            {
+                return _RemoveCategory ??
+                    (_RemoveCategory = new RelayCommand(async obj =>
+                    {
+
+                        bool result = await categoryService.DeleteCategory(obj as ProductsCategory);
+                        if (result)
+                        {
+                            CategoryList.Remove(obj as ProductsCategory);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка");
+                        }
+                    }));
+            }
+        }
+        private RelayCommand _RemoveProperty;
+        public RelayCommand RemoveProperty
+        {
+            get
+            {
+                return _RemoveProperty ??
+                    (_RemoveProperty = new RelayCommand(async obj =>
+                    {
+
+                        bool result = await propertyService.DeleteProperty(obj as Models.Properties);
+                        if (result)
+                        {
+                            PropsList.Remove(obj as Models.Properties);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Ошибка");
+                        }
+                    }));
+            }
+        }
         private RelayCommand _AddProps;
         public RelayCommand AddProps
         {

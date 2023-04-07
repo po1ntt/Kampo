@@ -84,6 +84,7 @@
     </Compile>
     <Compile Include="DataService\DBservice\CategoryService.cs" />
     <Compile Include="DataService\DBservice\MainService.cs" />
+    <Compile Include="DataService\DBservice\OrderService.cs" />
     <Compile Include="DataService\DBservice\ProductService.cs" />
     <Compile Include="DataService\DBservice\PropertyService.cs" />
     <Compile Include="DataService\DBservice\UsersService.cs" />
@@ -110,6 +111,15 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>Model.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\Orders.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\OrdersItem.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ProductReceipt.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Products.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -122,22 +132,34 @@
     <Compile Include="Models\Properties.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReceiptItems.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_helpdiagrams_Result.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\Status.cs">
+      <DependentUpon>Model.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sysdiagrams.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Users.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
+    <Compile Include="ViewsModels\AboutOrderVM.cs" />
     <Compile Include="ViewsModels\AboutProductVM.cs" />
     <Compile Include="ViewsModels\BaseVM.cs" />
+    <Compile Include="ViewsModels\NewOrderVM.cs" />
+    <Compile Include="ViewsModels\OrderVM.cs" />
     <Compile Include="ViewsModels\ProductAddVM.cs" />
     <Compile Include="ViewsModels\ProductsVM.cs" />
     <Compile Include="ViewsModels\PropsAndCategoryVM.cs" />
     <Compile Include="Views\Pages\AboutProduct.xaml.cs">
       <DependentUpon>AboutProduct.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\Documents.xaml.cs">
-      <DependentUpon>Documents.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\GoodsReceipPage.xaml.cs">
       <DependentUpon>GoodsReceipPage.xaml</DependentUpon>
@@ -148,11 +170,20 @@
     <Compile Include="Views\Pages\NewProduct.xaml.cs">
       <DependentUpon>NewProduct.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Views\Pages\OrdersPage.xaml.cs">
+      <DependentUpon>OrdersPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\Pages\ProductPage.xaml.cs">
       <DependentUpon>ProductPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Properties.xaml.cs">
       <DependentUpon>Properties.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Subpages\AboutOrder.xaml.cs">
+      <DependentUpon>AboutOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Views\Pages\Subpages\NewOrder.xaml.cs">
+      <DependentUpon>NewOrder.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Windows\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
@@ -195,10 +226,6 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\Pages\Documents.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\Pages\GoodsReceipPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -211,11 +238,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Views\Pages\OrdersPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\Pages\ProductPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\Properties.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Subpages\AboutOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Views\Pages\Subpages\NewOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

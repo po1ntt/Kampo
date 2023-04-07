@@ -63,6 +63,14 @@
                 </ListViewItem>
             </ListView>
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
+                <ListViewItem Height="60" PreviewMouseLeftButtonDown="Orders_Click">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Margin="10,0,0,0" Kind="FileDocumentEdit" Width="25" Height="25" VerticalAlignment="Center"  />
+                        <TextBlock Text="Заказы" VerticalAlignment="Center" Margin="20 10" />
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
                 <ListViewItem Height="60" PreviewMouseLeftButtonDown="NewProduct_click">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Margin="10,0,0,0" Kind="Add" Width="25" Height="25" VerticalAlignment="Center"  />
@@ -70,14 +78,7 @@
                     </StackPanel>
                 </ListViewItem>
             </ListView>
-            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
-                <ListViewItem Height="60" PreviewMouseLeftButtonDown="Document_Click">
-                    <StackPanel Orientation="Horizontal" >
-                        <materialDesign:PackIcon Margin="10,0,0,0" Kind="FileDocument" Width="25" Height="25" VerticalAlignment="Center"  />
-                        <TextBlock Text="Документы" VerticalAlignment="Center" Margin="20 10" />
-                    </StackPanel>
-                </ListViewItem>
-            </ListView>
+            
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
                 <ListViewItem Height="60" PreviewMouseLeftButtonDown="Logs_Click">
                     <StackPanel Orientation="Horizontal" >

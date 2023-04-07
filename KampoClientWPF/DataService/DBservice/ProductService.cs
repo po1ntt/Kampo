@@ -10,7 +10,7 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class ProductService : MainService
     {
-        public async Task<List<Products>> GetProductsAsync() => await context.Products.ToListAsync();
+        public List<Products> GetProductsAsync() => context.Products.ToList();
         public async Task<List<Products>> GetProductsByName(string name) => await context.Products.Where(p=> p.ProductName.ToLower().Contains(name.ToLower())).ToListAsync();
         public async Task<List<Products>> GetProductsByCategoryName(string name) => await context.Products.Where(p => p.ProductsCategory.CategoryName == name).ToListAsync();
         public async Task<bool> DeleteProduct(Products products)
@@ -46,7 +46,7 @@ namespace KampoClientWPF.DataService.DBservice
                     CountProduct = products.CountProduct,
                     ImageUrl= products.ImageUrl,
                 });
-                context.SaveChanges();
+                await context.SaveChangesAsync();
                 return true;
             }
             catch (Exception exp)
@@ -74,7 +74,7 @@ namespace KampoClientWPF.DataService.DBservice
                     ProductToUpdate.ProductDescription = products.ProductDescription;
                     productproperties = products.ProductsProperties.ToList();
                     ProductToUpdate.ImageUrl = products.ImageUrl;
-                    await context.SaveChangesAsync();
+                    context.SaveChanges();
                    
 
 

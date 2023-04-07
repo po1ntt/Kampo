@@ -93,7 +93,7 @@
                         </DataGridTextColumn.ElementStyle>
 
                     </DataGridTextColumn>
-                    <DataGridTextColumn Header="Кол-во на складе"  Binding="{Binding CountProduct, StringFormat='Кол-во на складе: {0}'}" Width="1*">
+                    <DataGridTextColumn Header="Кол-во на складе"  Binding="{Binding CountProduct}"   Width="1*">
                         <DataGridTextColumn.ElementStyle>
                             <Style>
                                 <Setter Property="TextBlock.TextWrapping" Value="Wrap" />

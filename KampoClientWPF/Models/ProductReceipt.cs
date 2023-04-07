@@ -12,28 +12,19 @@ namespace KampoClientWPF.Models
     using System;
     using System.Collections.Generic;
     
-    public partial class Products
+    public partial class ProductReceipt
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Products()
+        public ProductReceipt()
         {
-            this.ProductsProperties = new HashSet<ProductsProperties>();
-            this.OrdersItem = new HashSet<OrdersItem>();
             this.ReceiptItems = new HashSet<ReceiptItems>();
         }
     
-        public int id_product { get; set; }
-        public string ProductName { get; set; }
-        public int productscategory_id { get; set; }
-        public string ProductDescription { get; set; }
-        public Nullable<int> CountProduct { get; set; }
-        public string ImageUrl { get; set; }
+        public int id_productReceipt { get; set; }
+        public Nullable<System.DateTime> DateReceipt { get; set; }
+        public Nullable<int> order_id { get; set; }
     
-        public virtual ProductsCategory ProductsCategory { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductsProperties> ProductsProperties { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<OrdersItem> OrdersItem { get; set; }
+        public virtual Orders Orders { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<ReceiptItems> ReceiptItems { get; set; }
     }

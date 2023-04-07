@@ -1,4 +1,7 @@
-﻿using System;
+﻿using KampoClientWPF.DataService;
+using KampoClientWPF.Models;
+using KampoClientWPF.Views.Pages.Subpages;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -16,13 +19,19 @@ using System.Windows.Shapes;
 namespace KampoClientWPF.Views.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для Documents.xaml
+    /// Логика взаимодействия для Orders.xaml
     /// </summary>
-    public partial class Documents : Page
+    public partial class OrdersPage : Page
     {
-        public Documents()
+        public OrdersPage()
         {
             InitializeComponent();
+        }
+
+        private void DataGrid_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            NavigationFrame.NavFrame.Navigate(new AboutOrder(DgOrders.SelectedItem as Models.Orders));
+
         }
     }
 }

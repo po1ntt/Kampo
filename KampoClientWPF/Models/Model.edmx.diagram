@@ -16,6 +16,17 @@
         <AssociationConnector Association="KampoDBModel.FK_Products_ProductsCategory" ManuallyRouted="false" />
         <AssociationConnector Association="KampoDBModel.FK_ProductsProperties_Products" ManuallyRouted="false" />
         <AssociationConnector Association="KampoDBModel.FK_ProductsProperties_Properties" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="KampoDBModel.Orders" Width="1.5" PointX="3" PointY="10.375" />
+        <EntityTypeShape EntityType="KampoDBModel.OrdersItem" Width="1.5" PointX="5.625" PointY="8.875" />
+        <EntityTypeShape EntityType="KampoDBModel.ProductReceipt" Width="1.5" PointX="5.25" PointY="13.5" />
+        <EntityTypeShape EntityType="KampoDBModel.ReceiptItems" Width="1.5" PointX="8.5" PointY="9.125" />
+        <EntityTypeShape EntityType="KampoDBModel.Status" Width="1.5" PointX="0.75" PointY="10.875" />
+        <AssociationConnector Association="KampoDBModel.FK_Orders_Status" />
+        <AssociationConnector Association="KampoDBModel.FK_OrdersItem_Orders" />
+        <AssociationConnector Association="KampoDBModel.FK_ProductReceipt_Orders" />
+        <AssociationConnector Association="KampoDBModel.FK_OrdersItem_Products" />
+        <AssociationConnector Association="KampoDBModel.FK_ReceiptItems_ProductReceipt" />
+        <AssociationConnector Association="KampoDBModel.FK_ReceiptItems_Products" />
       </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>

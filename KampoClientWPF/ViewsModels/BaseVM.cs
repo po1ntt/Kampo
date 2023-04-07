@@ -17,9 +17,11 @@ namespace KampoClientWPF.ViewsModels
     {
         public ProductService productService { get; set; } = new ProductService();
         public CategoryService categoryService { get; set; } = new CategoryService();
-
+        public OrderService orderService { get; set; } = new OrderService();
         public UsersService usersService { get; set; } = new UsersService();
         public Logger Logger { get; set; } = new Logger();
+        public PropertyService propertyService { get; set; } = new PropertyService();
+
 
 
         private bool _IsBusy;
@@ -52,10 +54,10 @@ namespace KampoClientWPF.ViewsModels
                 productsCategories.Add(item);
             }
         }
-        public async void LoadProducts(ObservableCollection<Products> products)
+        public  void LoadProducts(ObservableCollection<Products> products)
         {
             products.Clear();
-            List<Products> productslist = await productService.GetProductsAsync();
+            List<Products> productslist =  productService.GetProductsAsync();
             foreach (var item in productslist)
             {
                 products.Add(item);
