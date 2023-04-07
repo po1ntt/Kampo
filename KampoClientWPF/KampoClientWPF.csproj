@@ -117,9 +117,6 @@
     <Compile Include="Models\OrdersItem.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ProductReceipt.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
     <Compile Include="Models\Products.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
@@ -130,9 +127,6 @@
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\Properties.cs">
-      <DependentUpon>Model.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Models\ReceiptItems.cs">
       <DependentUpon>Model.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_helpdiagramdefinition_Result.cs">
@@ -160,9 +154,6 @@
     <Compile Include="ViewsModels\PropsAndCategoryVM.cs" />
     <Compile Include="Views\Pages\AboutProduct.xaml.cs">
       <DependentUpon>AboutProduct.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\Pages\GoodsReceipPage.xaml.cs">
-      <DependentUpon>GoodsReceipPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\Pages\Logs.xaml.cs">
       <DependentUpon>Logs.xaml</DependentUpon>
@@ -223,10 +214,6 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\Pages\AboutProduct.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\Pages\GoodsReceipPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

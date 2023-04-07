@@ -19,7 +19,6 @@ namespace KampoClientWPF.Models
         {
             this.ProductsProperties = new HashSet<ProductsProperties>();
             this.OrdersItem = new HashSet<OrdersItem>();
-            this.ReceiptItems = new HashSet<ReceiptItems>();
         }
     
         public int id_product { get; set; }
@@ -34,7 +33,5 @@ namespace KampoClientWPF.Models
         public virtual ICollection<ProductsProperties> ProductsProperties { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersItem> OrdersItem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ReceiptItems> ReceiptItems { get; set; }
     }
 }

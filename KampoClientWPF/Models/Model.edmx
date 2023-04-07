@@ -35,14 +35,6 @@
           <Property Name="ProductCount" Type="int" />
           <Property Name="order_id" Type="int" />
         </EntityType>
-        <EntityType Name="ProductReceipt">
-          <Key>
-            <PropertyRef Name="id_productReceipt" />
-          </Key>
-          <Property Name="id_productReceipt" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="DateReceipt" Type="date" />
-          <Property Name="order_id" Type="int" />
-        </EntityType>
         <EntityType Name="Products">
           <Key>
             <PropertyRef Name="id_product" />
@@ -76,15 +68,6 @@
           </Key>
           <Property Name="id_propertries" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="NameProperty" Type="nvarchar(max)" />
-        </EntityType>
-        <EntityType Name="ReceiptItems">
-          <Key>
-            <PropertyRef Name="id_receiptItems" />
-          </Key>
-          <Property Name="id_receiptItems" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
-          <Property Name="product_id" Type="int" />
-          <Property Name="ProductCount" Type="int" />
-          <Property Name="productreceipt_id" Type="int" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -140,7 +123,9 @@
           </ReferentialConstraint>
         </Association>
         <Association Name="FK_OrdersItem_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
+          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="OrdersItem" Type="Self.OrdersItem" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Orders">
@@ -160,18 +145,6 @@
             </Principal>
             <Dependent Role="OrdersItem">
               <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ProductReceipt_Orders">
-          <End Role="Orders" Type="Self.Orders" Multiplicity="0..1" />
-          <End Role="ProductReceipt" Type="Self.ProductReceipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="id_order" />
-            </Principal>
-            <Dependent Role="ProductReceipt">
-              <PropertyRef Name="order_id" />
             </Dependent>
           </ReferentialConstraint>
         </Association>
@@ -217,30 +190,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ReceiptItems_ProductReceipt">
-          <End Role="ProductReceipt" Type="Self.ProductReceipt" Multiplicity="0..1" />
-          <End Role="ReceiptItems" Type="Self.ReceiptItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductReceipt">
-              <PropertyRef Name="id_productReceipt" />
-            </Principal>
-            <Dependent Role="ReceiptItems">
-              <PropertyRef Name="productreceipt_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReceiptItems_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="ReceiptItems" Type="Self.ReceiptItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="id_product" />
-            </Principal>
-            <Dependent Role="ReceiptItems">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
         <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
@@ -276,12 +225,10 @@
           <EntitySet Name="LogsUsers" EntityType="Self.LogsUsers" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Orders" EntityType="Self.Orders" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="OrdersItem" EntityType="Self.OrdersItem" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ProductReceipt" EntityType="Self.ProductReceipt" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Products" EntityType="Self.Products" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsCategory" EntityType="Self.ProductsCategory" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="ProductsProperties" EntityType="Self.ProductsProperties" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Properties" EntityType="Self.Properties" Schema="dbo" store:Type="Tables" />
-          <EntitySet Name="ReceiptItems" EntityType="Self.ReceiptItems" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Status" EntityType="Self.Status" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Users" EntityType="Self.Users" Schema="dbo" store:Type="Tables" />
@@ -301,10 +248,6 @@
             <End Role="Products" EntitySet="Products" />
             <End Role="OrdersItem" EntitySet="OrdersItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductReceipt_Orders" Association="Self.FK_ProductReceipt_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="ProductReceipt" EntitySet="ProductReceipt" />
-          </AssociationSet>
           <AssociationSet Name="FK_Products_ProductsCategory" Association="Self.FK_Products_ProductsCategory">
             <End Role="ProductsCategory" EntitySet="ProductsCategory" />
             <End Role="Products" EntitySet="Products" />
@@ -316,14 +259,6 @@
           <AssociationSet Name="FK_ProductsProperties_Properties" Association="Self.FK_ProductsProperties_Properties">
             <End Role="Properties" EntitySet="Properties" />
             <End Role="ProductsProperties" EntitySet="ProductsProperties" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReceiptItems_ProductReceipt" Association="Self.FK_ReceiptItems_ProductReceipt">
-            <End Role="ProductReceipt" EntitySet="ProductReceipt" />
-            <End Role="ReceiptItems" EntitySet="ReceiptItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReceiptItems_Products" Association="Self.FK_ReceiptItems_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ReceiptItems" EntitySet="ReceiptItems" />
           </AssociationSet>
         </EntityContainer>
       </Schema></edmx:StorageModels>
@@ -355,7 +290,6 @@
           <NavigationProperty Name="ProductsProperties" Relationship="Self.FK_ProductsProperties_Products" FromRole="Products" ToRole="ProductsProperties" />
           <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="OrdersItem" Relationship="KampoDBModel.FK_OrdersItem_Products" FromRole="Products" ToRole="OrdersItem" />
-          <NavigationProperty Name="ReceiptItems" Relationship="KampoDBModel.FK_ReceiptItems_Products" FromRole="Products" ToRole="ReceiptItems" />
         </EntityType>
         <EntityType Name="ProductsCategory">
           <Key>
@@ -481,8 +415,6 @@
           </AssociationSet>
           <EntitySet Name="Orders" EntityType="KampoDBModel.Orders" />
           <EntitySet Name="OrdersItem" EntityType="KampoDBModel.OrdersItem" />
-          <EntitySet Name="ProductReceipt" EntityType="KampoDBModel.ProductReceipt" />
-          <EntitySet Name="ReceiptItems" EntityType="KampoDBModel.ReceiptItems" />
           <EntitySet Name="Status" EntityType="KampoDBModel.Status" />
           <AssociationSet Name="FK_Orders_Status" Association="KampoDBModel.FK_Orders_Status">
             <End Role="Status" EntitySet="Status" />
@@ -492,21 +424,9 @@
             <End Role="Orders" EntitySet="Orders" />
             <End Role="OrdersItem" EntitySet="OrdersItem" />
           </AssociationSet>
-          <AssociationSet Name="FK_ProductReceipt_Orders" Association="KampoDBModel.FK_ProductReceipt_Orders">
-            <End Role="Orders" EntitySet="Orders" />
-            <End Role="ProductReceipt" EntitySet="ProductReceipt" />
-          </AssociationSet>
           <AssociationSet Name="FK_OrdersItem_Products" Association="KampoDBModel.FK_OrdersItem_Products">
             <End Role="Products" EntitySet="Products" />
             <End Role="OrdersItem" EntitySet="OrdersItem" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReceiptItems_ProductReceipt" Association="KampoDBModel.FK_ReceiptItems_ProductReceipt">
-            <End Role="ProductReceipt" EntitySet="ProductReceipt" />
-            <End Role="ReceiptItems" EntitySet="ReceiptItems" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ReceiptItems_Products" Association="KampoDBModel.FK_ReceiptItems_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ReceiptItems" EntitySet="ReceiptItems" />
           </AssociationSet>
           <FunctionImport Name="sp_alterdiagram">
             <Parameter Name="diagramname" Mode="In" Type="String" />
@@ -550,7 +470,6 @@
           <Property Name="DateComplete" Type="DateTime" Precision="0" />
           <NavigationProperty Name="Status" Relationship="KampoDBModel.FK_Orders_Status" FromRole="Orders" ToRole="Status" />
           <NavigationProperty Name="OrdersItem" Relationship="KampoDBModel.FK_OrdersItem_Orders" FromRole="Orders" ToRole="OrdersItem" />
-          <NavigationProperty Name="ProductReceipt" Relationship="KampoDBModel.FK_ProductReceipt_Orders" FromRole="Orders" ToRole="ProductReceipt" />
         </EntityType>
         <EntityType Name="OrdersItem">
           <Key>
@@ -562,27 +481,6 @@
           <Property Name="order_id" Type="Int32" />
           <NavigationProperty Name="Orders" Relationship="KampoDBModel.FK_OrdersItem_Orders" FromRole="OrdersItem" ToRole="Orders" />
           <NavigationProperty Name="Products" Relationship="KampoDBModel.FK_OrdersItem_Products" FromRole="OrdersItem" ToRole="Products" />
-        </EntityType>
-        <EntityType Name="ProductReceipt">
-          <Key>
-            <PropertyRef Name="id_productReceipt" />
-          </Key>
-          <Property Name="id_productReceipt" Type="Int32" Nullable="false" />
-          <Property Name="DateReceipt" Type="DateTime" Precision="0" />
-          <Property Name="order_id" Type="Int32" />
-          <NavigationProperty Name="Orders" Relationship="KampoDBModel.FK_ProductReceipt_Orders" FromRole="ProductReceipt" ToRole="Orders" />
-          <NavigationProperty Name="ReceiptItems" Relationship="KampoDBModel.FK_ReceiptItems_ProductReceipt" FromRole="ProductReceipt" ToRole="ReceiptItems" />
-        </EntityType>
-        <EntityType Name="ReceiptItems">
-          <Key>
-            <PropertyRef Name="id_receiptItems" />
-          </Key>
-          <Property Name="id_receiptItems" Type="Int32" Nullable="false" />
-          <Property Name="product_id" Type="Int32" />
-          <Property Name="ProductCount" Type="Int32" />
-          <Property Name="productreceipt_id" Type="Int32" />
-          <NavigationProperty Name="ProductReceipt" Relationship="KampoDBModel.FK_ReceiptItems_ProductReceipt" FromRole="ReceiptItems" ToRole="ProductReceipt" />
-          <NavigationProperty Name="Products" Relationship="KampoDBModel.FK_ReceiptItems_Products" FromRole="ReceiptItems" ToRole="Products" />
         </EntityType>
         <EntityType Name="Status">
           <Key>
@@ -616,18 +514,6 @@
             </Dependent>
           </ReferentialConstraint>
         </Association>
-        <Association Name="FK_ProductReceipt_Orders">
-          <End Type="KampoDBModel.Orders" Role="Orders" Multiplicity="0..1" />
-          <End Type="KampoDBModel.ProductReceipt" Role="ProductReceipt" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Orders">
-              <PropertyRef Name="id_order" />
-            </Principal>
-            <Dependent Role="ProductReceipt">
-              <PropertyRef Name="order_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_OrdersItem_Products">
           <End Type="KampoDBModel.Products" Role="Products" Multiplicity="0..1" />
           <End Type="KampoDBModel.OrdersItem" Role="OrdersItem" Multiplicity="*" />
@@ -636,30 +522,6 @@
               <PropertyRef Name="id_product" />
             </Principal>
             <Dependent Role="OrdersItem">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReceiptItems_ProductReceipt">
-          <End Type="KampoDBModel.ProductReceipt" Role="ProductReceipt" Multiplicity="0..1" />
-          <End Type="KampoDBModel.ReceiptItems" Role="ReceiptItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="ProductReceipt">
-              <PropertyRef Name="id_productReceipt" />
-            </Principal>
-            <Dependent Role="ReceiptItems">
-              <PropertyRef Name="productreceipt_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ReceiptItems_Products">
-          <End Type="KampoDBModel.Products" Role="Products" Multiplicity="0..1" />
-          <End Type="KampoDBModel.ReceiptItems" Role="ReceiptItems" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="id_product" />
-            </Principal>
-            <Dependent Role="ReceiptItems">
               <PropertyRef Name="product_id" />
             </Dependent>
           </ReferentialConstraint>
@@ -773,25 +635,6 @@
                 <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
                 <ScalarProperty Name="product_id" ColumnName="product_id" />
                 <ScalarProperty Name="id_orderitem" ColumnName="id_orderitem" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ProductReceipt">
-            <EntityTypeMapping TypeName="KampoDBModel.ProductReceipt">
-              <MappingFragment StoreEntitySet="ProductReceipt">
-                <ScalarProperty Name="order_id" ColumnName="order_id" />
-                <ScalarProperty Name="DateReceipt" ColumnName="DateReceipt" />
-                <ScalarProperty Name="id_productReceipt" ColumnName="id_productReceipt" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
-          <EntitySetMapping Name="ReceiptItems">
-            <EntityTypeMapping TypeName="KampoDBModel.ReceiptItems">
-              <MappingFragment StoreEntitySet="ReceiptItems">
-                <ScalarProperty Name="productreceipt_id" ColumnName="productreceipt_id" />
-                <ScalarProperty Name="ProductCount" ColumnName="ProductCount" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="id_receiptItems" ColumnName="id_receiptItems" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

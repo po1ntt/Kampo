@@ -18,7 +18,6 @@ namespace KampoClientWPF.Models
         public Orders()
         {
             this.OrdersItem = new HashSet<OrdersItem>();
-            this.ProductReceipt = new HashSet<ProductReceipt>();
         }
     
         public int id_order { get; set; }
@@ -30,7 +29,5 @@ namespace KampoClientWPF.Models
         public virtual Status Status { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<OrdersItem> OrdersItem { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<ProductReceipt> ProductReceipt { get; set; }
     }
 }

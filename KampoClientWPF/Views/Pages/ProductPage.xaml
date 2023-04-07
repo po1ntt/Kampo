@@ -38,10 +38,7 @@
 
                     </StackPanel>
                     <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
-                        <Button Background="DarkOrange"   Margin="5" Command="{Binding AddNewProduct}">
-                            <TextBlock  FontWeight="Bold">Поступления</TextBlock>
-                        </Button>
-
+                       
                         <Button Background="Green" Content="Новый продукт" Margin="5"  Command="{Binding AddNewProduct}" ></Button>
 
                     </StackPanel>

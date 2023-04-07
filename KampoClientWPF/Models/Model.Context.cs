@@ -36,8 +36,6 @@ namespace KampoClientWPF.Models
         public virtual DbSet<Users> Users { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
         public virtual DbSet<OrdersItem> OrdersItem { get; set; }
-        public virtual DbSet<ProductReceipt> ProductReceipt { get; set; }
-        public virtual DbSet<ReceiptItems> ReceiptItems { get; set; }
         public virtual DbSet<Status> Status { get; set; }
     
         public virtual int sp_alterdiagram(string diagramname, Nullable<int> owner_id, Nullable<int> version, byte[] definition)
