@@ -10,13 +10,15 @@
 namespace KampoClientWPF.Models
 {
     using System;
+    using System.Collections.Generic;
     
-    public partial class sp_helpdiagrams_Result
+    public partial class ChangeProductsList
     {
-        public string Database { get; set; }
-        public string Name { get; set; }
-        public int ID { get; set; }
-        public string Owner { get; set; }
-        public int OwnerID { get; set; }
+        public int id_changeProducts { get; set; }
+        public Nullable<int> product_id { get; set; }
+        public Nullable<int> logger_products_id { get; set; }
+    
+        public virtual LoggerProducts LoggerProducts { get; set; }
+        public virtual Products Products { get; set; }
     }
 }

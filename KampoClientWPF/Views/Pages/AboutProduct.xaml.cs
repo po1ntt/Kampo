@@ -34,8 +34,9 @@ namespace KampoClientWPF.Views.Pages
             DataService.NavigationFrame.NavFrame.GoBack();
         }
 
-      
-
-      
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !DataService.StaticServices.ServicesStatic.IsTextAllowed(e.Text);
+        }
     }
 }

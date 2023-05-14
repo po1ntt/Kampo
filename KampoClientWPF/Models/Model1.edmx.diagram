@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="e2cb46bfc48a4ea98e15f04226feed8f" Name="Diagram1">
+        <EntityTypeShape EntityType="KampoDBModel.ChangeProductsList" Width="1.5" PointX="5.25" PointY="4.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.LoggerProducts" Width="1.5" PointX="3" PointY="2.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.LogsUsers" Width="1.5" PointX="11" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.Orders" Width="1.5" PointX="3" PointY="9.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.OrdersItem" Width="1.5" PointX="5.25" PointY="7.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.Products" Width="1.5" PointX="3" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.ProductsCategory" Width="1.5" PointX="0.75" PointY="4.375" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.ProductsProperties" Width="1.5" PointX="8.25" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.Properties" Width="1.5" PointX="6" PointY="1.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.Status" Width="1.5" PointX="0.75" PointY="9.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.sysdiagrams" Width="1.5" PointX="7.75" PointY="8.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="KampoDBModel.Users" Width="1.5" PointX="8.75" PointY="1" IsExpanded="true" />
+        <AssociationConnector Association="KampoDBModel.FK_ChangeProductsList_LoggerProducts" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_ChangeProductsList_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_LoggerProducts_ProductsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_LogsUsers_Users" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_Orders_Status" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_OrdersItem_Orders" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_OrdersItem_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_Products_ProductsCategory" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_ProductsProperties_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="KampoDBModel.FK_ProductsProperties_Properties" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

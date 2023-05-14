@@ -17,12 +17,15 @@ namespace KampoClientWPF.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public ProductsCategory()
         {
+            this.LoggerProducts = new HashSet<LoggerProducts>();
             this.Products = new HashSet<Products>();
         }
     
         public int id_productcategory { get; set; }
         public string CategoryName { get; set; }
     
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<LoggerProducts> LoggerProducts { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Products> Products { get; set; }
     }

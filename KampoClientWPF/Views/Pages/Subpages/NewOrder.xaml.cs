@@ -26,5 +26,10 @@ namespace KampoClientWPF.Views.Pages.Subpages
             InitializeComponent();
             DataContext = new NewOrderVM();
         }
+
+        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
+        {
+            e.Handled = !DataService.StaticServices.ServicesStatic.IsTextAllowed(e.Text);
+        }
     }
 }

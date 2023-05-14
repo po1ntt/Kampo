@@ -33,7 +33,11 @@ namespace KampoClientWPF.ViewsModels
             get { return _ProductImage; }
             set { _ProductImage = value;
                 ImageSourse = _ProductImage;
-                Product.ImageUrl = _ProductImage;
+                if(!string.IsNullOrWhiteSpace(_ProductImage))
+                {
+                    Product.ImageUrl = _ProductImage;
+
+                }
                 OnPropertyChanged();
             }
         }
@@ -76,7 +80,6 @@ namespace KampoClientWPF.ViewsModels
                     {
                         productsProperties.Add(new ProductsProperties
                         {
-                            product_id = Product.id_product,
                             Properties = Propertie,
                             ValueProperty = ValueProperty
                         });
@@ -98,9 +101,11 @@ namespace KampoClientWPF.ViewsModels
                         await propertyService.AddToProductProperties(productsProperties, Product.ProductName);
                         productsProperties.Clear();
                         Logger.AddData(UsersService.UserInfo, "Продукт", Product.ProductName);
+                        Propertie = null;
+                        ValueProperty = string.Empty;
                         ProductImage = null;
                         ImageSourse = "\\Resource\\ImagesProducts\\imagenotfound.png";
-                        Product = null;
+                        Product = new Products();
 
 
                     }));

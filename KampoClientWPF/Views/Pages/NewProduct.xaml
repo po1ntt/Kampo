@@ -18,23 +18,23 @@
             <StackPanel Grid.Row="0">
                 
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
-                    <TextBox FontSize="40" materialDesign:HintAssist.Hint="Название" Text="{Binding Product.ProductName}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                    <TextBox  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="40" materialDesign:HintAssist.Hint="Название" Text="{Binding Product.ProductName}" TextWrapping="Wrap" Foreground="White"></TextBox>
                 </Border>
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
                     <StackPanel>
-                        <TextBox FontSize="25" materialDesign:HintAssist.Hint="Ссылка на картинку" Text="{Binding ProductImage}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                        <TextBox  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="25" materialDesign:HintAssist.Hint="Ссылка на картинку" Text="{Binding ProductImage}" TextWrapping="Wrap" Foreground="White"></TextBox>
                         <Image Width="400" Height="250" Margin="10" Source="{Binding ImageSourse}">
                         </Image>
                     </StackPanel>
                 </Border>
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
-                    <TextBox FontSize="25"  materialDesign:HintAssist.Hint="Описание"  Text="{Binding Product.ProductDescription}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                    <TextBox  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="25"  materialDesign:HintAssist.Hint="Описание"  Text="{Binding Product.ProductDescription}" TextWrapping="Wrap" Foreground="White"></TextBox>
                 </Border>
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
-                    <ComboBox FontSize="25" materialDesign:HintAssist.Hint="Категория"  SelectedItem="{Binding Product.ProductsCategory}" ItemsSource="{Binding ProductCategorie}" DisplayMemberPath="CategoryName"  Foreground="White"></ComboBox>
+                    <ComboBox  Style="{StaticResource MaterialDesignFloatingHintComboBox}" FontSize="25" materialDesign:HintAssist.Hint="Категория"  SelectedItem="{Binding Product.ProductsCategory}" ItemsSource="{Binding ProductCategorie}" DisplayMemberPath="CategoryName"  Foreground="White"></ComboBox>
                 </Border>
                 <Border Margin="5" Padding="10" CornerRadius="3" Background="#80373737">
-                    <TextBox FontSize="25" materialDesign:HintAssist.Hint="Количество"  Text="{Binding Product.CountProduct}" TextWrapping="Wrap" Foreground="White"></TextBox>
+                    <TextBox  Style="{StaticResource MaterialDesignFloatingHintTextBox}" FontSize="25" materialDesign:HintAssist.Hint="Количество" PreviewTextInput="TextBox_PreviewTextInput"  Text="{Binding Product.CountProduct}" TextWrapping="Wrap" Foreground="White"></TextBox>
                 </Border>
                 <Border Margin="5"  Padding="10" CornerRadius="3" Background="#80373737">
                     <StackPanel>
@@ -46,8 +46,8 @@
                                 <ColumnDefinition />
                                 <ColumnDefinition />
                             </Grid.ColumnDefinitions>
-                            <TextBox Text="{Binding ValueProperty}" Foreground="White" Grid.Column="1" Margin="5"  FontSize="20" VerticalAlignment="Center"  materialDesign:HintAssist.Hint="Значение"></TextBox>
-                            <ComboBox SelectedItem="{Binding Propertie}" ItemsSource="{Binding PropertiesList}" DisplayMemberPath="NameProperty" Grid.Column="0" Margin="5"  FontSize="20" VerticalAlignment="Center"  ></ComboBox>
+                            <TextBox  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Text="{Binding ValueProperty}" Foreground="White" Grid.Column="1" Margin="5"  FontSize="20" VerticalAlignment="Center"  materialDesign:HintAssist.Hint="Значение"></TextBox>
+                            <ComboBox Style="{StaticResource MaterialDesignFloatingHintComboBox}" materialDesign:HintAssist.Hint="Свойство" SelectedItem="{Binding Propertie}" ItemsSource="{Binding PropertiesList}" DisplayMemberPath="NameProperty" Grid.Column="0" Margin="5"  FontSize="20" VerticalAlignment="Center"  ></ComboBox>
                             <Button Command="{Binding PropertyAddToProduct}"  Grid.Column="2" Margin="5" Content="Добавить"></Button>
                         </Grid>
                         <ListView  ItemsSource="{Binding productsProperties}">

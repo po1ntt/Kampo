@@ -63,6 +63,14 @@
                 </ListViewItem>
             </ListView>
             <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
+                <ListViewItem Height="60" PreviewMouseLeftButtonDown="GotoLoggerPage_Click">
+                    <StackPanel Orientation="Horizontal" >
+                        <materialDesign:PackIcon Margin="10,0,0,0" Kind="ChartProductionPossibilityFrontier" Width="25" Height="25" VerticalAlignment="Center"  />
+                        <TextBlock Text="Остатки товара" VerticalAlignment="Center" Margin="20 10" />
+                    </StackPanel>
+                </ListViewItem>
+            </ListView>
+            <ListView ScrollViewer.HorizontalScrollBarVisibility="Disabled" Foreground="White">
                 <ListViewItem Height="60" PreviewMouseLeftButtonDown="Orders_Click">
                     <StackPanel Orientation="Horizontal" >
                         <materialDesign:PackIcon Margin="10,0,0,0" Kind="FileDocumentEdit" Width="25" Height="25" VerticalAlignment="Center"  />

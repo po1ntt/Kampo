@@ -79,6 +79,10 @@ namespace KampoClientWPF.Components.NavigationMenu
         {
             DataService.NavigationFrame.NavFrame.Navigate(new ProductPage());
         }
+        private void GotoLoggerPage_Click(object sender, MouseButtonEventArgs e)
+        {
+            DataService.NavigationFrame.NavFrame.Navigate(new LoggerProductPage());
+        }
         private void Orders_Click(object sender, MouseButtonEventArgs e)
         {
             DataService.NavigationFrame.NavFrame.Navigate(new OrdersPage());

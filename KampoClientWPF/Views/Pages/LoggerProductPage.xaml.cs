@@ -16,19 +16,13 @@ using System.Windows.Shapes;
 namespace KampoClientWPF.Views.Pages
 {
     /// <summary>
-    /// Логика взаимодействия для NewProduct.xaml
+    /// Логика взаимодействия для LoggerProductPage.xaml
     /// </summary>
-    public partial class NewProduct : Page
+    public partial class LoggerProductPage : Page
     {
-        public NewProduct()
+        public LoggerProductPage()
         {
             InitializeComponent();
-            Random random = new Random();
         }
-
-        private void TextBox_PreviewTextInput(object sender, TextCompositionEventArgs e)
-        {
-          e.Handled =!DataService.StaticServices.ServicesStatic.IsTextAllowed(e.Text);
-        } 
     }
 }

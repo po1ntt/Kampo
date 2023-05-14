@@ -47,6 +47,10 @@ namespace KampoClientWPF.DataService.DBservice
                     ImageUrl= products.ImageUrl,
                 });
                 await context.SaveChangesAsync();
+                if (LoggerProductService.loggerProductService.IsTodayLogAboutProductExists(products.ProductsCategory))
+                    await LoggerProductService.loggerProductService.UpdateLoggerService(products.ProductsCategory);
+                else
+                    await LoggerProductService.loggerProductService.AddLogerProductService(StaticServices.ServicesStatic.TYPEACTION_HAND, products.ProductsCategory);
                 return true;
             }
             catch (Exception exp)
@@ -60,7 +64,9 @@ namespace KampoClientWPF.DataService.DBservice
         {
             try
             {
+            
                 var ProductToUpdate = await context.Products.FirstOrDefaultAsync(p => p.id_product == products.id_product);
+                ProductsCategory previusProductsCategory = ProductToUpdate.ProductsCategory;
                 var productproperties = await context.ProductsProperties.Where(p => p.product_id == products.id_product).ToListAsync();
                 if(ProductToUpdate.ImageUrl == null)
                 {
@@ -75,8 +81,18 @@ namespace KampoClientWPF.DataService.DBservice
                     productproperties = products.ProductsProperties.ToList();
                     ProductToUpdate.ImageUrl = products.ImageUrl;
                     context.SaveChanges();
-                   
-
+                    if (LoggerProductService.loggerProductService.IsTodayLogAboutProductExists(ProductToUpdate.ProductsCategory))
+                        await LoggerProductService.loggerProductService.UpdateLoggerService(ProductToUpdate.ProductsCategory);
+                    else
+                        await LoggerProductService.loggerProductService.AddLogerProductService(StaticServices.ServicesStatic.TYPEACTION_HAND, ProductToUpdate.ProductsCategory);
+                    if (ProductToUpdate.productscategory_id != previusProductsCategory.id_productcategory)
+                    {
+                      
+                        if (LoggerProductService.loggerProductService.IsTodayLogAboutProductExists(previusProductsCategory))
+                            await LoggerProductService.loggerProductService.UpdateLoggerService(previusProductsCategory);
+                        else
+                            await LoggerProductService.loggerProductService.AddLogerProductService(StaticServices.ServicesStatic.TYPEACTION_HAND, previusProductsCategory);
+                    }
 
                 }
                 return true;

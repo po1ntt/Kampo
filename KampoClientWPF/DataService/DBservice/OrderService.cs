@@ -1,4 +1,5 @@
 ﻿using KampoClientWPF.Models;
+using KampoClientWPF.ViewsModels;
 using System;
 using System.Collections.Generic;
 using System.Data.Entity;
@@ -94,12 +95,22 @@ namespace KampoClientWPF.DataService.DBservice
                         context.SaveChanges();
                         if (OrderToUpdate.status_id == 4)
                         {
+                            var categoriesToUpdateList = new List<ProductsCategory>();
                             OrderToUpdate.DateComplete = DateTime.Now;
                             foreach(var item in orders.OrdersItem)
                             {
                                 var product = context.Products.FirstOrDefault(p => p.id_product == item.product_id);
                                 product.CountProduct = product.CountProduct + item.ProductCount;
-                                context.SaveChanges();
+                                categoriesToUpdateList.Add(product.ProductsCategory);
+                            }
+                            context.SaveChanges();
+                            categoriesToUpdateList.Distinct();
+                            foreach (var item in categoriesToUpdateList)
+                            {
+                                if (LoggerProductService.loggerProductService.IsTodayLogAboutProductExists(item))
+                                    await LoggerProductService.loggerProductService.UpdateLoggerService(item);
+                                else
+                                    await LoggerProductService.loggerProductService.AddLogerProductService(StaticServices.ServicesStatic.TYPEACTION_ORDER, item);
                             }
                             MessageBox.Show("Кол-во товаров обновлено(Находящихся в заказе)");
                         }
