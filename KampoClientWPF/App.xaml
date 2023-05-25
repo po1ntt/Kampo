@@ -4,7 +4,8 @@
              xmlns:local="clr-namespace:KampoClientWPF"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:windows="clr-namespace:KampoClientWPF.Views.Windows"
-             Startup="Application_Startup">
+             Startup="Application_Startup"
+            >
     <Application.Resources>
         <ResourceDictionary>
             <Style TargetType="Button" BasedOn="{StaticResource MaterialDesignFlatAccentBgButton}">

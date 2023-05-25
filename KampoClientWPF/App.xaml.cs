@@ -23,6 +23,10 @@ namespace KampoClientWPF
             {
                 KampoDBEntities context = new KampoDBEntities();
                 UsersService.UserInfo = context.Users.FirstOrDefault(p => p.Login == KampoClientWPF.Properties.Settings.Default.Login);
+                foreach (var item in context.ChangeProductsList.ToList())
+                {
+                    Console.WriteLine(item.product_id);
+                }
                 MainWindow mainwindow = new MainWindow();
                 CurrentWindow = mainwindow;
                 mainwindow.Show();

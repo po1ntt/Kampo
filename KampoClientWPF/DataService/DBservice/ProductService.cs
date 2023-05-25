@@ -10,6 +10,8 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class ProductService : MainService
     {
+        public KampoDBEntities context = new KampoDBEntities();
+
         public List<Products> GetProductsAsync() => context.Products.ToList();
         public async Task<List<Products>> GetProductsByName(string name) => await context.Products.Where(p=> p.ProductName.ToLower().Contains(name.ToLower())).ToListAsync();
         public async Task<List<Products>> GetProductsByCategoryName(string name) => await context.Products.Where(p => p.ProductsCategory.CategoryName == name).ToListAsync();

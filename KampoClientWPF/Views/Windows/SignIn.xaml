@@ -14,7 +14,8 @@
         MouseDown="Window_MouseDown"
         xmlns:materialdesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:header="clr-namespace:KampoClientWPF.Components.Header"
-        Background="Transparent">
+        Background="Transparent"
+       Icon="/Resource/Images/icon.png">
     <Border CornerRadius="20" Background="White">
         <Grid Background="#111">
             <header:Header></header:Header>

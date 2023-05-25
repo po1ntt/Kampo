@@ -18,96 +18,95 @@ namespace KampoClientWPF.ViewsModels
 {
     public class LoggerProductVM : BaseVM
     {
-        public class LoggerModel : BaseVM
-        { 
-            public LoggerProducts loggerProducts { get; set; }
-            public ObservableCollection<ChangeProductsList> changeProducts { get; set; } = new ObservableCollection<ChangeProductsList>();
-            private Rotation _rotation;
-            public Rotation Rotation
-            {
-                get { return _rotation; }
-                set { _rotation = value;
-                   
-                    OnPropertyChanged();
-                }
-            }
-            private Visibility _IsExpand;
-            public Visibility IsExpand
-            {
-                get { return _IsExpand; }
-                set { _IsExpand = value;
-                    OnPropertyChanged();
-                }
-            }
-            public RelayCommand relayCommand { get; set; }
+        private Visibility _visibilityDG;
 
+        public Visibility visibilityDG
+        {
+            get { return _visibilityDG; }
+            set { _visibilityDG = value;
+                OnPropertyChanged();
+            }
         }
-        public ObservableCollection<LoggerModel> loggerProducts { get; set; }
+        private Visibility _visibilityTB;
+
+        public Visibility visibilityTB
+        {
+            get { return _visibilityTB; }
+            set { _visibilityTB = value;
+                OnPropertyChanged();
+            }
+        }
+
+
+        public ObservableCollection<ChangeProductsList> loggerProducts { get; set; }
+        public ObservableCollection<ProductsCategory> productsCategories { get; set; }
+        private ProductsCategory _selectedCategory;
+
+        public ProductsCategory selectedCategory
+        {
+            get { return _selectedCategory; }
+            set { _selectedCategory = value;
+                GetLoggerData(_selectedCategory.id_productcategory);
+                OnPropertyChanged();
+            }
+        }
+
         private DateTime _SelectedDate;
         public DateTime SelectedDate
         {
             get { return _SelectedDate; }
             set { _SelectedDate = value;
-                GetLoggerData();
+                GetLoggerData(_selectedCategory.id_productcategory);
                 OnPropertyChanged();
             }
         }
-        private RelayCommand _OpenCloseChildsCommand;
-        public RelayCommand OpenCloseChildsCommand
-        {
-            get
-            {
-                return _OpenCloseChildsCommand ??
-                    (_OpenCloseChildsCommand = new RelayCommand(obj =>
-                    {
-                        var loggerModel = obj as LoggerModel;
-                        RotateAndExpand(loggerModel);
-
-                    }));
-            }
-        }
+      
         public LoggerProductVM()
         {
-            loggerProducts = new ObservableCollection<LoggerModel>();
-
-            SelectedDate = DateTime.Today;
-            GetLoggerData();
+            loggerProducts = new ObservableCollection<ChangeProductsList>();
+            productsCategories = new ObservableCollection<ProductsCategory>();
+            GetCategoriesInfo();
         }
-        public  void RotateAndExpand(LoggerModel loggerModel)
+       
+       
+        public  async void GetLoggerData(int category)
         {
-            if (loggerModel.IsExpand == Visibility.Visible)
+            loggerProducts.Clear();
+            var collectionLoggerDate = await  DataService.DBservice.LoggerProductService.loggerProductService.GetLoggerProductsAsync(SelectedDate.ToString("d"), category);
+            foreach(var item in collectionLoggerDate)
             {
-                loggerModel.Rotation = Rotation.Rotate0;
-                loggerModel.IsExpand = Visibility.Collapsed;
+            
+                foreach(var items in item.ChangeProductsList)
+                {
+                    loggerProducts.Add(items);
+                }
+
+            }
+            if (collectionLoggerDate.Count == 0)
+            {
+                visibilityDG = Visibility.Collapsed;
+                visibilityTB = Visibility.Visible;
             }
             else
             {
-                loggerModel.Rotation = Rotation.Rotate90;
-                loggerModel.IsExpand = Visibility.Visible;
+                visibilityDG = Visibility.Visible;
+                visibilityTB = Visibility.Collapsed;
             }
-           
         }
-        public void InitGetLoggerDate()
+        public async void GetCategoriesInfo()
         {
-            GetLoggerData();
-        }
-        public  void GetLoggerData()
-        {
-            loggerProducts.Clear();
-            var collectionLoggerDate = DataService.DBservice.LoggerProductService.loggerProductService.GetLoggerProductsAsync(SelectedDate.ToString("d"));
-            foreach(var item in collectionLoggerDate)
+            productsCategories.Clear();
+            var categoriesList = await categoryService.GetCategoryAsync();
+            productsCategories.Add(new ProductsCategory()
             {
-                LoggerModel loggerModel = new LoggerModel();
-                loggerModel.IsExpand = Visibility.Collapsed;
-                loggerModel.Rotation = Rotation.Rotate0;
-                loggerModel.loggerProducts = item;
-                loggerModel.relayCommand = OpenCloseChildsCommand;
-                foreach(var param in item.ChangeProductsList.ToList())
-                {
-                    loggerModel.changeProducts.Add(param);
-                }
-                loggerProducts.Add(loggerModel);
-
+                id_productcategory = 0,
+                CategoryName = "Не выбрано"
+            });
+            selectedCategory = productsCategories[0];
+            SelectedDate = DateTime.Today;
+            foreach (var item in categoriesList)
+            {
+                productsCategories.Add(item);
             }
         }
         private void excell_Click(object sender, EventArgs e)

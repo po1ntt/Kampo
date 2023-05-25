@@ -13,6 +13,8 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class OrderService : MainService
     {
+        public KampoDBEntities context = new KampoDBEntities();
+
         public async Task<List<Orders>> GetOrdersAsync() => await context.Orders.ToListAsync();
     
         public async Task<bool> DeleteOrder(Orders orders)

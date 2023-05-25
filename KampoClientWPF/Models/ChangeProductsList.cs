@@ -11,13 +11,13 @@ namespace KampoClientWPF.Models
 {
     using System;
     using System.Collections.Generic;
-    
+
     public partial class ChangeProductsList
     {
         public int id_changeProducts { get; set; }
         public Nullable<int> product_id { get; set; }
         public Nullable<int> logger_products_id { get; set; }
-    
+        public Nullable<int> count_product { get; set; }
         public virtual LoggerProducts LoggerProducts { get; set; }
         public virtual Products Products { get; set; }
     }

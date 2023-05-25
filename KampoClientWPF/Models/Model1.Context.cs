@@ -25,7 +25,6 @@ namespace KampoClientWPF.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<ChangeProductsList> ChangeProductsList { get; set; }
         public virtual DbSet<LoggerProducts> LoggerProducts { get; set; }
         public virtual DbSet<LogsUsers> LogsUsers { get; set; }
         public virtual DbSet<Orders> Orders { get; set; }
@@ -37,5 +36,6 @@ namespace KampoClientWPF.Models
         public virtual DbSet<Status> Status { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
         public virtual DbSet<Users> Users { get; set; }
+        public virtual DbSet<ChangeProductsList> ChangeProductsList { get; set; }
     }
 }

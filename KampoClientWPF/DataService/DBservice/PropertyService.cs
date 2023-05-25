@@ -13,6 +13,8 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class PropertyService : MainService
     {
+        public KampoDBEntities context = new KampoDBEntities();
+
         public async Task<List<Models.Properties>> GetPropertiesAsync() => await context.Properties.ToListAsync();
         public async Task<Models.Properties> FindPropertyByNameAsync(string name) => await context.Properties.FirstOrDefaultAsync(p=> p.NameProperty == name);
         public async Task<bool> DeleteProductProperties(List<ProductsProperties> productsProperties)

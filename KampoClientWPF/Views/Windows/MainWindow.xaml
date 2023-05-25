@@ -14,6 +14,7 @@
         xmlns:header="clr-namespace:KampoClientWPF.Components.Header"
         MouseDown="Window_MouseDown"
         Background="#111"
+        Icon="/Resource/Images/icon.png"
        >
     <Grid>
         <navmenu:NavMenu Panel.ZIndex="100" ></navmenu:NavMenu>
@@ -31,6 +32,7 @@
             <header:HeaderMainWindow Panel.ZIndex="1000" Grid.Column="1"></header:HeaderMainWindow>
             <Grid Grid.Row="1" Grid.Column="1">
                 <Frame x:Name="MainFrame" NavigationUIVisibility="Hidden"></Frame>
+
             </Grid>
         </Grid>
     </Grid>

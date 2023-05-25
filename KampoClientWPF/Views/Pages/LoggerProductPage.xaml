@@ -10,79 +10,54 @@
       xmlns:vm="clr-namespace:KampoClientWPF.ViewsModels"
       xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 >
-    <Page.DataContext>
-        <vm:LoggerProductVM />
-    </Page.DataContext>
+   
     <ScrollViewer Background="{StaticResource MaterialDesignDarkBackground}">
-        <Grid Margin="10">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50" />
-                <RowDefinition Height="auto" />
-            </Grid.RowDefinitions>
-            <DatePicker FontSize="30" Foreground="White" SelectedDate="{Binding SelectedDate}"></DatePicker>
-            <Grid Grid.Row="1">
-                <ListView ScrollViewer.CanContentScroll="True" ItemsSource="{Binding loggerProducts}" HorizontalAlignment="Stretch">
-                    <ListView.ItemTemplate>
-                        <DataTemplate>
-                            <Border BorderBrush="White" BorderThickness="2" Background="#373737" CornerRadius="10" Padding="20" HorizontalAlignment="Stretch">
-                                <Grid>
-                                    <Grid.ColumnDefinitions>
-                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                                        <ColumnDefinition Width="0.5*"></ColumnDefinition>
-                                    </Grid.ColumnDefinitions>
-                                    <TextBlock TextWrapping="WrapWithOverflow" FontSize="30" Text="{Binding loggerProducts.ProductsCategory.CategoryName}"></TextBlock>
-                                    <StackPanel Grid.ColumnSpan="2">
-                                        <StackPanel HorizontalAlignment="Right" Orientation="Horizontal" Grid.Column="1">
-                                            <TextBlock Text="{Binding loggerProducts.DateChanging}" FontSize="25"></TextBlock>
-                                            <Button Content="Вывод в эксель" Background="Green" Margin="20,0,0,0" Command="{Binding relayCommand}" CommandParameter="{Binding}">
-                                               
-                                            </Button>
-                                            <Button  Command="{Binding relayCommand}" CommandParameter="{Binding}">
-                                                <Image Margin="5,0,0,0" Height="25" Width="25" HorizontalAlignment="Center"  >
-                                                    <Image.Source>
-                                                        <BitmapImage UriSource="/Resource/Images/arrow_next_right_icon.png" Rotation="{Binding Rotation}"/>
-                                                    </Image.Source>
-                                                </Image>
-                                            </Button>
+        <StackPanel>
+           
+            <Grid Margin="10">
 
-                                        </StackPanel>
-                                            <DataGrid Visibility="{Binding IsExpand}" Style="{StaticResource MaterialDesignDataGrid}"  Margin="0,20,0,0"  AutoGenerateColumns="False" Foreground="White" IsReadOnly="True"  ItemsSource="{Binding changeProducts}">
-                                            <DataGrid.Columns>
-                                                <DataGridTextColumn  Header="Название продукта"  Binding="{Binding Products.ProductName}"></DataGridTextColumn>
-                                                <DataGridTextColumn Header="Кол-во"  Binding="{Binding Products.CountProduct}"></DataGridTextColumn>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="80" />
+                    <RowDefinition Height="auto" />
+                </Grid.RowDefinitions>
 
-                                            </DataGrid.Columns>
+                <Grid HorizontalAlignment="Stretch" VerticalAlignment="Stretch">
 
-                                            </DataGrid>
-                                    </StackPanel>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
+                        <ColumnDefinition Width="1*" />
 
-                                </Grid>
-                            </Border>
-                        </DataTemplate>
-                    </ListView.ItemTemplate>
-                    <ListView.Resources>
-                        <Style TargetType="ListView" BasedOn="{StaticResource MaterialDesignListView}">
-                            <Style.Triggers>
-                                <DataTrigger Binding="{Binding RelativeSource={x:Static RelativeSource.Self}, Path=Items.Count}" Value="0">
-                                    <Setter Property="Template">
-                                        <Setter.Value>
-                                            <ControlTemplate>
-                                                <TextBlock HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="30">Пусто. Ничего не найдено, попробуйте другую дату.</TextBlock>
-                                            </ControlTemplate>
-                                        </Setter.Value>
-                                    </Setter>
-                                </DataTrigger>
-                            </Style.Triggers>
-                        </Style>
-                    </ListView.Resources>
-                    <ListView.ItemContainerStyle>
-                        <Style TargetType="ListViewItem">
-                            <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
-                        </Style>
-                    </ListView.ItemContainerStyle>
-                </ListView>
+                    </Grid.ColumnDefinitions>
+                    <DatePicker Margin="5" FontSize="30" Foreground="White" SelectedDate="{Binding SelectedDate}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></DatePicker>
+                    <ComboBox x:Name="cmbCategory" FontSize="20"  Margin="5" ItemsSource="{Binding productsCategories}" SelectedIndex="0" DisplayMemberPath="CategoryName" SelectedItem="{Binding selectedCategory}"  Grid.Column="1" materialDesign:HintAssist.Hint="Фильтр по категории" Style="{StaticResource MaterialDesignFloatingHintComboBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ComboBox>
+                    <Button x:Name="excelExport" Click="excelExport_Click" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Height="80" Background="Green" Content="Экспорт эксель"></Button>
+
+                </Grid>
+                <Grid Grid.Row="1">
+                    <DataGrid Visibility="{Binding visibilityDG}" x:Name="dgInfoLogger" AutoGenerateColumns="False" IsReadOnly="True" ItemsSource="{Binding loggerProducts}">
+                        <DataGrid.Columns>
+                            <DataGridTextColumn Header="Название" Width="1*" Binding="{Binding Products.ProductName}">
+
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Категория" Width="1*" Binding="{Binding Products.ProductsCategory.CategoryName}">
+
+                            </DataGridTextColumn>
+                            <DataGridTextColumn Header="Кол-во" Width="1*" Binding="{Binding count_product}">
+
+                            </DataGridTextColumn>
+
+                        </DataGrid.Columns>
+                    </DataGrid>
+                    <TextBlock FontSize="40" TextWrapping="Wrap" Visibility="{Binding visibilityTB}" TextAlignment="Center"  Text="Операций по изменению данных о товаре не проводилось(В эту дату)" HorizontalAlignment="Center" VerticalAlignment="Center">
+                        
+                    </TextBlock>
+
+                </Grid>
             </Grid>
-        </Grid>
+        </StackPanel>
+      
+     
     </ScrollViewer>
   
 </Page>

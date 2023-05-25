@@ -11,6 +11,8 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class UsersService : MainService
     {
+        public KampoDBEntities context = new KampoDBEntities();
+
         public static Users UserInfo { get; set; }
         public async Task<bool> AuthorizeUser(string username, string userpass, bool isremember)
         {

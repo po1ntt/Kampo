@@ -14,6 +14,8 @@ namespace KampoClientWPF.DataService.Logger
    
     public class Logger : MainService
     {
+        public KampoDBEntities context = new KampoDBEntities();
+
         public async Task<List<LogsUsers>> GetLogs() => await context.LogsUsers.ToListAsync();
         public  void UpdateData(Users users, string objectChanged, string nameObject)
         {

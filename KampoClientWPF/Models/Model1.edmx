@@ -12,6 +12,7 @@
           <Property Name="id_changeProducts" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
           <Property Name="product_id" Type="int" />
           <Property Name="logger_products_id" Type="int" />
+          <Property Name="count_product" Type="int" />
         </EntityType>
         <EntityType Name="LoggerProducts">
           <Key>
@@ -303,16 +304,6 @@
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="KampoDBModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
-        <EntityType Name="ChangeProductsList">
-          <Key>
-            <PropertyRef Name="id_changeProducts" />
-          </Key>
-          <Property Name="id_changeProducts" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
-          <Property Name="product_id" Type="Int32" />
-          <Property Name="logger_products_id" Type="Int32" />
-          <NavigationProperty Name="LoggerProducts" Relationship="Self.FK_ChangeProductsList_LoggerProducts" FromRole="ChangeProductsList" ToRole="LoggerProducts" />
-          <NavigationProperty Name="Products" Relationship="Self.FK_ChangeProductsList_Products" FromRole="ChangeProductsList" ToRole="Products" />
-        </EntityType>
         <EntityType Name="LoggerProducts">
           <Key>
             <PropertyRef Name="id_loggerProducts" />
@@ -321,8 +312,8 @@
           <Property Name="DateChanging" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="TypeActionChanging" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="productCategory_id" Type="Int32" Nullable="false" />
-          <NavigationProperty Name="ChangeProductsList" Relationship="Self.FK_ChangeProductsList_LoggerProducts" FromRole="LoggerProducts" ToRole="ChangeProductsList" />
           <NavigationProperty Name="ProductsCategory" Relationship="Self.FK_LoggerProducts_ProductsCategory" FromRole="LoggerProducts" ToRole="ProductsCategory" />
+          <NavigationProperty Name="ChangeProductsList" Relationship="KampoDBModel.FK_ChangeProductsList_LoggerProducts" FromRole="LoggerProducts" ToRole="ChangeProductsList" />
         </EntityType>
         <EntityType Name="LogsUsers">
           <Key>
@@ -369,10 +360,10 @@
           <Property Name="ProductDescription" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <Property Name="CountProduct" Type="Int32" />
           <Property Name="ImageUrl" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
-          <NavigationProperty Name="ChangeProductsList" Relationship="Self.FK_ChangeProductsList_Products" FromRole="Products" ToRole="ChangeProductsList" />
           <NavigationProperty Name="OrdersItem" Relationship="Self.FK_OrdersItem_Products" FromRole="Products" ToRole="OrdersItem" />
           <NavigationProperty Name="ProductsCategory" Relationship="Self.FK_Products_ProductsCategory" FromRole="Products" ToRole="ProductsCategory" />
           <NavigationProperty Name="ProductsProperties" Relationship="Self.FK_ProductsProperties_Products" FromRole="Products" ToRole="ProductsProperties" />
+          <NavigationProperty Name="ChangeProductsList" Relationship="KampoDBModel.FK_ChangeProductsList_Products" FromRole="Products" ToRole="ChangeProductsList" />
         </EntityType>
         <EntityType Name="ProductsCategory">
           <Key>
@@ -433,30 +424,6 @@
           <Property Name="Password" Type="String" MaxLength="Max" FixedLength="false" Unicode="true" />
           <NavigationProperty Name="LogsUsers" Relationship="Self.FK_LogsUsers_Users" FromRole="Users" ToRole="LogsUsers" />
         </EntityType>
-        <Association Name="FK_ChangeProductsList_LoggerProducts">
-          <End Role="LoggerProducts" Type="Self.LoggerProducts" Multiplicity="0..1" />
-          <End Role="ChangeProductsList" Type="Self.ChangeProductsList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="LoggerProducts">
-              <PropertyRef Name="id_loggerProducts" />
-            </Principal>
-            <Dependent Role="ChangeProductsList">
-              <PropertyRef Name="logger_products_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
-        <Association Name="FK_ChangeProductsList_Products">
-          <End Role="Products" Type="Self.Products" Multiplicity="0..1" />
-          <End Role="ChangeProductsList" Type="Self.ChangeProductsList" Multiplicity="*" />
-          <ReferentialConstraint>
-            <Principal Role="Products">
-              <PropertyRef Name="id_product" />
-            </Principal>
-            <Dependent Role="ChangeProductsList">
-              <PropertyRef Name="product_id" />
-            </Dependent>
-          </ReferentialConstraint>
-        </Association>
         <Association Name="FK_LoggerProducts_ProductsCategory">
           <End Role="ProductsCategory" Type="Self.ProductsCategory" Multiplicity="1" />
           <End Role="LoggerProducts" Type="Self.LoggerProducts" Multiplicity="*" />
@@ -562,7 +529,6 @@
           </ReferentialConstraint>
         </Association>
         <EntityContainer Name="KampoDBEntities" annotation:LazyLoadingEnabled="true">
-          <EntitySet Name="ChangeProductsList" EntityType="Self.ChangeProductsList" />
           <EntitySet Name="LoggerProducts" EntityType="Self.LoggerProducts" />
           <EntitySet Name="LogsUsers" EntityType="Self.LogsUsers" />
           <EntitySet Name="Orders" EntityType="Self.Orders" />
@@ -574,14 +540,6 @@
           <EntitySet Name="Status" EntityType="Self.Status" />
           <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
           <EntitySet Name="Users" EntityType="Self.Users" />
-          <AssociationSet Name="FK_ChangeProductsList_LoggerProducts" Association="Self.FK_ChangeProductsList_LoggerProducts">
-            <End Role="LoggerProducts" EntitySet="LoggerProducts" />
-            <End Role="ChangeProductsList" EntitySet="ChangeProductsList" />
-          </AssociationSet>
-          <AssociationSet Name="FK_ChangeProductsList_Products" Association="Self.FK_ChangeProductsList_Products">
-            <End Role="Products" EntitySet="Products" />
-            <End Role="ChangeProductsList" EntitySet="ChangeProductsList" />
-          </AssociationSet>
           <AssociationSet Name="FK_LoggerProducts_ProductsCategory" Association="Self.FK_LoggerProducts_ProductsCategory">
             <End Role="ProductsCategory" EntitySet="ProductsCategory" />
             <End Role="LoggerProducts" EntitySet="LoggerProducts" />
@@ -614,22 +572,59 @@
             <End Role="Properties" EntitySet="Properties" />
             <End Role="ProductsProperties" EntitySet="ProductsProperties" />
           </AssociationSet>
+          <EntitySet Name="ChangeProductsList" EntityType="KampoDBModel.ChangeProductsList" />
+          <AssociationSet Name="FK_ChangeProductsList_LoggerProducts" Association="KampoDBModel.FK_ChangeProductsList_LoggerProducts">
+            <End Role="LoggerProducts" EntitySet="LoggerProducts" />
+            <End Role="ChangeProductsList" EntitySet="ChangeProductsList" />
+          </AssociationSet>
+          <AssociationSet Name="FK_ChangeProductsList_Products" Association="KampoDBModel.FK_ChangeProductsList_Products">
+            <End Role="Products" EntitySet="Products" />
+            <End Role="ChangeProductsList" EntitySet="ChangeProductsList" />
+          </AssociationSet>
         </EntityContainer>
+        <EntityType Name="ChangeProductsList">
+          <Key>
+            <PropertyRef Name="id_changeProducts" />
+          </Key>
+          <Property Name="id_changeProducts" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="product_id" Type="Int32" />
+          <Property Name="logger_products_id" Type="Int32" />
+          <Property Name="count_product" Type="Int32" />
+          <NavigationProperty Name="LoggerProducts" Relationship="KampoDBModel.FK_ChangeProductsList_LoggerProducts" FromRole="ChangeProductsList" ToRole="LoggerProducts" />
+          <NavigationProperty Name="Products" Relationship="KampoDBModel.FK_ChangeProductsList_Products" FromRole="ChangeProductsList" ToRole="Products" />
+        </EntityType>
+        <Association Name="FK_ChangeProductsList_LoggerProducts">
+          <End Type="KampoDBModel.LoggerProducts" Role="LoggerProducts" Multiplicity="0..1" />
+          <End Type="KampoDBModel.ChangeProductsList" Role="ChangeProductsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="LoggerProducts">
+              <PropertyRef Name="id_loggerProducts" />
+            </Principal>
+            <Dependent Role="ChangeProductsList">
+              <PropertyRef Name="logger_products_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_ChangeProductsList_Products">
+          <End Type="KampoDBModel.Products" Role="Products" Multiplicity="0..1">
+            <OnDelete Action="Cascade" />
+          </End>
+          <End Type="KampoDBModel.ChangeProductsList" Role="ChangeProductsList" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Products">
+              <PropertyRef Name="id_product" />
+            </Principal>
+            <Dependent Role="ChangeProductsList">
+              <PropertyRef Name="product_id" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
     <edmx:Mappings>
       <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
         <EntityContainerMapping StorageEntityContainer="Хранилище KampoDBModelContainer" CdmEntityContainer="KampoDBEntities">
-          <EntitySetMapping Name="ChangeProductsList">
-            <EntityTypeMapping TypeName="KampoDBModel.ChangeProductsList">
-              <MappingFragment StoreEntitySet="ChangeProductsList">
-                <ScalarProperty Name="id_changeProducts" ColumnName="id_changeProducts" />
-                <ScalarProperty Name="product_id" ColumnName="product_id" />
-                <ScalarProperty Name="logger_products_id" ColumnName="logger_products_id" />
-              </MappingFragment>
-            </EntityTypeMapping>
-          </EntitySetMapping>
           <EntitySetMapping Name="LoggerProducts">
             <EntityTypeMapping TypeName="KampoDBModel.LoggerProducts">
               <MappingFragment StoreEntitySet="LoggerProducts">
@@ -740,6 +735,16 @@
                 <ScalarProperty Name="NumberPhone" ColumnName="NumberPhone" />
                 <ScalarProperty Name="Login" ColumnName="Login" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="ChangeProductsList">
+            <EntityTypeMapping TypeName="KampoDBModel.ChangeProductsList">
+              <MappingFragment StoreEntitySet="ChangeProductsList">
+                <ScalarProperty Name="count_product" ColumnName="count_product" />
+                <ScalarProperty Name="logger_products_id" ColumnName="logger_products_id" />
+                <ScalarProperty Name="product_id" ColumnName="product_id" />
+                <ScalarProperty Name="id_changeProducts" ColumnName="id_changeProducts" />
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>

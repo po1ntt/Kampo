@@ -10,6 +10,7 @@ namespace KampoClientWPF.DataService.DBservice
 {
     public class CategoryService : MainService
     {
+        public KampoDBEntities context = new KampoDBEntities();
         public async Task<List<ProductsCategory>> GetCategoryAsync() => await context.ProductsCategory.ToListAsync();
         public async Task<ProductsCategory> FindCategoryByNameAsync(string name) => await context.ProductsCategory.FirstOrDefaultAsync(p => p.CategoryName == name);
         public async Task<bool> DeleteCategory(ProductsCategory productsCategory)
