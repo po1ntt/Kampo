@@ -31,7 +31,7 @@
                     </Grid.ColumnDefinitions>
                     <DatePicker Margin="5" FontSize="30" Foreground="White" SelectedDate="{Binding SelectedDate}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></DatePicker>
                     <ComboBox x:Name="cmbCategory" FontSize="20"  Margin="5" ItemsSource="{Binding productsCategories}" SelectedIndex="0" DisplayMemberPath="CategoryName" SelectedItem="{Binding selectedCategory}"  Grid.Column="1" materialDesign:HintAssist.Hint="Фильтр по категории" Style="{StaticResource MaterialDesignFloatingHintComboBox}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"></ComboBox>
-                    <Button x:Name="excelExport" Click="excelExport_Click" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Height="80" Background="Green" Content="Экспорт эксель"></Button>
+                    <Button x:Name="excelExport" Command="{Binding ExcelClick}" Grid.Column="2" HorizontalAlignment="Stretch" Margin="5" VerticalAlignment="Stretch" Height="80" Background="Green" Content="Экспорт эксель"></Button>
 
                 </Grid>
                 <Grid Grid.Row="1">

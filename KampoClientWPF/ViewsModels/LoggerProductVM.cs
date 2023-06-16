@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.IO;
 using System.Windows.Forms;
 using System.Runtime.InteropServices.Expando;
+using Microsoft.Office.Interop.Excel;
 
 namespace KampoClientWPF.ViewsModels
 {
@@ -67,8 +68,20 @@ namespace KampoClientWPF.ViewsModels
             productsCategories = new ObservableCollection<ProductsCategory>();
             GetCategoriesInfo();
         }
-       
-       
+
+        private RelayCommand _ExcelClick;
+        public RelayCommand ExcelClick
+        {
+            get
+            {
+                return _ExcelClick ??
+                    (_ExcelClick = new RelayCommand(async obj =>
+                    {
+                        Excel_OutPut();
+
+                    }));
+            }
+        }
         public  async void GetLoggerData(int category)
         {
             loggerProducts.Clear();
@@ -93,6 +106,56 @@ namespace KampoClientWPF.ViewsModels
                 visibilityTB = Visibility.Collapsed;
             }
         }
+        public void Excel_OutPut()
+        {
+            Stream myStream;
+            System.Windows.Forms.SaveFileDialog saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+
+            saveFileDialog1.Filter = "EXCEL Files 2003 (*.xls)|*.xls|All files (*.*)|*.*";
+
+            saveFileDialog1.RestoreDirectory = true;
+            Microsoft.Office.Interop.Excel.Worksheet worksheet;
+            if (saveFileDialog1.ShowDialog() == DialogResult.OK)
+            {
+               
+                    object misValue = System.Reflection.Missing.Value;
+
+                    var path = saveFileDialog1.FileName;
+                    Microsoft.Office.Interop.Excel.Application app = new Microsoft.Office.Interop.Excel.Application();
+                    Workbook workbook = app.Workbooks.Add(misValue);
+                    worksheet = (Microsoft.Office.Interop.Excel.Worksheet)app.Worksheets.get_Item(1);
+                    worksheet.Cells[1, 1] = SelectedDate.ToString("d");
+                    worksheet.Columns.ColumnWidth = 24;
+                    worksheet.Cells[1, 1].Font.Bold = true;
+                    worksheet.Cells[2, 1] = "Название";
+                    worksheet.Cells[2, 2] = "Категория";
+                    worksheet.Cells[2, 3] = "Кол-во";
+
+                    int i = 3;
+                    foreach (var item in loggerProducts.ToList())
+                    {
+                        worksheet.Cells[i, 1] = item.Products.ProductName;
+                        worksheet.Cells[i, 2] = item.Products.ProductsCategory.CategoryName;
+                        worksheet.Cells[i, 3] = item.count_product;
+                        i++;
+
+                    }
+                    workbook.SaveAs(path, misValue, misValue, misValue, misValue, misValue, XlSaveAsAccessMode.xlShared, misValue, misValue, misValue, misValue, misValue);
+                    System.Windows.MessageBox.Show("excel файл создан");
+                    /* myStream.Close();
+                     dgInfoLogger.SelectAllCells();
+                     dgInfoLogger.ClipboardCopyMode = DataGridClipboardCopyMode.IncludeHeader;
+                     ApplicationCommands.Copy.Execute(null, dgInfoLogger);
+                     String resultat = (string)System.Windows.Clipboard.GetData(System.Windows.DataFormats.CommaSeparatedValue);
+                     String result = (string)System.Windows.Clipboard.GetData(System.Windows.DataFormats.Text);
+                     dgInfoLogger.UnselectAllCells();
+                     System.IO.StreamWriter file1 = new System.IO.StreamWriter(path, true, System.Text.Encoding.GetEncoding(1251));
+                     file1.WriteLine(result.Replace(',', ' '));
+                     file1.Close();*/
+
+                
+            }
+        }
         public async void GetCategoriesInfo()
         {
             productsCategories.Clear();
@@ -109,14 +172,6 @@ namespace KampoClientWPF.ViewsModels
                 productsCategories.Add(item);
             }
         }
-        private void excell_Click(object sender, EventArgs e)
-        {
-          
-        }
-
-        public void SaveExel(string filepath, List<ChangeProductsList> changeProductsLists)
-        {
-           
-        }
+      
     }
 }

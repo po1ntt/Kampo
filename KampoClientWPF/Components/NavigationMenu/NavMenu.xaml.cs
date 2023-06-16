@@ -11,6 +11,7 @@ using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Data;
 using System.Windows.Documents;
+using System.Windows.Forms;
 using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
@@ -22,7 +23,7 @@ namespace KampoClientWPF.Components.NavigationMenu
     /// <summary>
     /// Логика взаимодействия для NavMenu.xaml
     /// </summary>
-    public partial class NavMenu : UserControl
+    public partial class NavMenu : System.Windows.Controls.UserControl
     {
         
         public bool isbusy { get; set; }
@@ -55,17 +56,27 @@ namespace KampoClientWPF.Components.NavigationMenu
       
         private void OutAppClick_Click(object sender, MouseButtonEventArgs e)
         {
-            Application.Current.MainWindow.Close();
+            DialogResult result = System.Windows.Forms.MessageBox.Show("Вы действительно хотите закрыть приложение?", "", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                System.Windows.Application.Current.MainWindow.Close();
+            }
         }
         private void Logout_Click(object sender, MouseButtonEventArgs e)
         {
-            KampoClientWPF.Properties.Settings.Default.Reset();
-            UsersService.UserInfo = null;
-            SignIn signIn = new SignIn();
-            Application.Current.MainWindow = signIn;
-            signIn.Show();
-            App.CurrentWindow.Close();
-            App.CurrentWindow = signIn;
+            DialogResult result = System.Windows.Forms.MessageBox.Show("Вы действительно хотите выйти из аккаунта?", "Выход из аккаунта", MessageBoxButtons.YesNo);
+            if (result == DialogResult.Yes)
+            {
+                KampoClientWPF.Properties.Settings.Default.Reset();
+                UsersService.UserInfo = null;
+                SignIn signIn = new SignIn();
+                System.Windows.Application.Current.MainWindow = signIn;
+                signIn.Show();
+                App.CurrentWindow.Close();
+                App.CurrentWindow = signIn;
+            }
+           
+          
 
         }
        

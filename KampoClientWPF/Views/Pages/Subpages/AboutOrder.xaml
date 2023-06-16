@@ -76,7 +76,7 @@
                    
                 </Border>
                     <Border Margin="5" Background="#80373737" Padding="10">
-                        <Button Content="Акт приемки(Вывод в ворд)" Click="Word_1"></Button>
+                        <Button Command="{Binding WordOutPut}" Content="Акт приемки(Вывод в ворд)" Click="Word_1"></Button>
                     </Border>
                </StackPanel>
         </Grid>

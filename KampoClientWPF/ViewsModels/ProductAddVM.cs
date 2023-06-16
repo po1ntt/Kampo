@@ -8,6 +8,7 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace KampoClientWPF.ViewsModels
 {
@@ -95,10 +96,24 @@ namespace KampoClientWPF.ViewsModels
                     (_AddProduct = new RelayCommand( async obj =>
                     {
                         ProductService productService = new ProductService();
-                        Product.ProductsProperties = productsProperties;
-                        await productService.AddProductAsync(Product);
-                        PropertyService propertyService = new PropertyService();
-                        await propertyService.AddToProductProperties(productsProperties, Product.ProductName);
+                        if(productsProperties.Count > 0)
+                        {
+                            Product.ProductsProperties = productsProperties;
+                        }
+                        if (Product.ProductName != string.Empty && Product.ProductDescription != string.Empty && Product.CountProduct.ToString() != string.Empty && Product.ProductsCategory != null)
+                        {
+                            await productService.AddProductAsync(Product);
+                        }
+                        else
+                        {
+                            MessageBox.Show("Поля заполнены не корректно");
+                        }
+                        if (productsProperties.Count > 0)
+                        {
+                            PropertyService propertyService = new PropertyService();
+                            await propertyService.AddToProductProperties(productsProperties, Product.ProductName);
+                        }
+   
                         productsProperties.Clear();
                         Logger.AddData(UsersService.UserInfo, "Продукт", Product.ProductName);
                         Propertie = null;

@@ -5,6 +5,7 @@ using System.Data.Entity;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace KampoClientWPF.DataService.DBservice
 {
@@ -35,25 +36,35 @@ namespace KampoClientWPF.DataService.DBservice
         public async Task<bool> AddProductAsync(Products products)
         {
             try
-            { 
-                if(products.ImageUrl == null)
+            {
+                if (products.ImageUrl == null)
                 {
                     products.ImageUrl = "/Resource/ImagesProducts/imagenotfound.png";
                 }
-                context.Products.Add(new Products()
+                if (!string.IsNullOrWhiteSpace(products.ProductName) || !string.IsNullOrWhiteSpace(products.ProductDescription)
+                    || !string.IsNullOrWhiteSpace(products.CountProduct.ToString())
+                   )
                 {
-                    ProductName= products.ProductName,
-                    ProductDescription = products.ProductDescription,
-                    productscategory_id = products.ProductsCategory.id_productcategory,
-                    CountProduct = products.CountProduct,
-                    ImageUrl= products.ImageUrl,
-                });
-                await context.SaveChangesAsync();
-                if (LoggerProductService.loggerProductService.IsTodayLogAboutProductExists(products.ProductsCategory))
-                    await LoggerProductService.loggerProductService.UpdateLoggerService(products.ProductsCategory);
+                    context.Products.Add(new Products()
+                    {
+                        ProductName = products.ProductName,
+                        ProductDescription = products.ProductDescription,
+                        productscategory_id = products.ProductsCategory.id_productcategory,
+                        CountProduct = products.CountProduct,
+                        ImageUrl = products.ImageUrl,
+                    });
+                    await context.SaveChangesAsync();
+                    if (LoggerProductService.loggerProductService.IsTodayLogAboutProductExists(products.ProductsCategory))
+                        await LoggerProductService.loggerProductService.UpdateLoggerService(products.ProductsCategory);
+                    else
+                        await LoggerProductService.loggerProductService.AddLogerProductService(StaticServices.ServicesStatic.TYPEACTION_HAND, products.ProductsCategory);
+                    return true;
+                }
                 else
-                    await LoggerProductService.loggerProductService.AddLogerProductService(StaticServices.ServicesStatic.TYPEACTION_HAND, products.ProductsCategory);
-                return true;
+                {
+                    MessageBox.Show("Поля заполнены не корректно");
+                    return false;
+                }
             }
             catch (Exception exp)
             {

@@ -68,9 +68,45 @@ namespace KampoClientWPF.ViewsModels
                             MessageBox.Show("Ошибка");
                         }
                     }));
+              /*  var filepath = System.IO.Directory.GetCurrentDirectory();
+
+                var file = new WordService(@".\WordTemplate\TemplateDocladnay.docx");
+                bool result = file.Process(RecordsComingDG.SelectedItem as ComingRecords);
+                if (result == true)
+                {
+                    System.Windows.MessageBox.Show("Документ создан");
+                }
+                else
+                {
+                    System.Windows.MessageBox.Show(":L");
+                }*/
             }
         }
-       
+        private RelayCommand _WordOutPut;
+        public RelayCommand WordOutPut
+        {
+            get
+            {
+                return _WordOutPut ??
+                    (_WordOutPut = new RelayCommand(async obj =>
+                    {
+
+                        var filepath = System.IO.Directory.GetCurrentDirectory();
+
+                        var file = new WordService(@".\WordTemplate\TemplateDocladnay.docx");
+                        bool result = file.Process(OrdersItem.ToList());
+                        if (result == true)
+                        {
+                            System.Windows.MessageBox.Show("Документ создан");
+                        }
+                        else
+                        {
+                            System.Windows.MessageBox.Show(":L");
+                        }
+                    }));
+             
+            }
+        }
         public void LoadOrderItemsFromOrder()
         {
             OrdersItem.Clear();

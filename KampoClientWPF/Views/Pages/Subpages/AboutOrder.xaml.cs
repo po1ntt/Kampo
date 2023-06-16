@@ -37,7 +37,7 @@ namespace KampoClientWPF.Views.Pages.Subpages
 
         private void Word_1(object sender, RoutedEventArgs e)
         {
-            MessageBox.Show("TODO");
+           
         }
     }
 }

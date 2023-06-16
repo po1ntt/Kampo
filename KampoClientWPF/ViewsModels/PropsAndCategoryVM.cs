@@ -94,17 +94,25 @@ namespace KampoClientWPF.ViewsModels
                     {
                         Models.Properties properties = new Models.Properties();
                         PropertyService propertyService = new PropertyService();
-                        string result = await propertyService.NewProperty(PropsValue);
-                        if (result != "Cвойство уже существует")
+                        if (!string.IsNullOrWhiteSpace(PropsValue))
                         {
-                            properties = await propertyService.FindPropertyByNameAsync(PropsValue);
-                            PropsList.Add(properties);
-                            PropsValue = string.Empty;
-                            Logger.AddData(UsersService.UserInfo, "Cвойство", PropsValue);
+                            string result = await propertyService.NewProperty(PropsValue);
+                            if (result != "Cвойство уже существует")
+                            {
+                                properties = await propertyService.FindPropertyByNameAsync(PropsValue);
+                                PropsList.Add(properties);
+                                Logger.AddData(UsersService.UserInfo, "Cвойство", PropsValue);
+                                PropsValue = string.Empty;
+
+                            }
+                            else
+                            {
+                                MessageBox.Show(result);
+                            }
                         }
                         else
                         {
-                            MessageBox.Show(result);
+                            MessageBox.Show("Введите название свойства");
                         }
 
                     },
@@ -121,20 +129,27 @@ namespace KampoClientWPF.ViewsModels
                     {
                         ProductsCategory category = new ProductsCategory();
                         CategoryService categoryService = new CategoryService();
-                        string result = await categoryService.NewCategory(CategoryValue);
-                        if (result != "Категория уже существует")
+                        if (!string.IsNullOrWhiteSpace(CategoryValue))
                         {
-                            category = await categoryService.FindCategoryByNameAsync(CategoryValue);
-                            CategoryList.Add(category);
-                            CategoryValue = string.Empty;
-                            Logger.AddData(UsersService.UserInfo, "Категория", CategoryValue);
+                            string result = await categoryService.NewCategory(CategoryValue);
+                            if (result != "Категория уже существует")
+                            {
+                                category = await categoryService.FindCategoryByNameAsync(CategoryValue);
+                                CategoryList.Add(category);
+                                Logger.AddData(UsersService.UserInfo, "Категория", CategoryValue);
+                                CategoryValue = string.Empty;
 
-
+                            }
+                            else
+                            {
+                                MessageBox.Show(result);
+                            }
                         }
                         else
                         {
-                            MessageBox.Show(result);
+                            MessageBox.Show("Введите название категории");
                         }
+
 
                     },
                     (obj) => CategoryValue != string.Empty));
